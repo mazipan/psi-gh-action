@@ -1,13 +1,18 @@
-name: 'Hello World'
-description: 'Greet someone and record the time'
+name: "static-web-perf-action"
+description: "Github Action to generate web performance report in static JavaScript and JSON file using Lighthouse"
+
 inputs:
-  who-to-greet:  # id of input
-    description: 'Who to greet'
+  urls:
+    description: "List of URL(s) to analyze"
     required: true
-    default: 'World'
-outputs:
-  time: # id of output
-    description: 'The time we greeted you'
+  devices:
+    description: "Device(s) used for test"
+    required: true
+    default: mobile
+  runs:
+    description: "Number of runs to do per URL"
+    default: 3
+
 runs:
-  using: 'node12'
-  main: 'dist/index.js'
+  using: "node12"
+  main: "dist/index.js"
