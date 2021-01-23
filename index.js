@@ -1,7 +1,6 @@
 const core = require('@actions/core')
-const github = require('@actions/github')
+// const github = require('@actions/github')
 const { getInputList } = require('./src/utils')
-const { runLh } = require('./src/runLh')
 const { debug, info } = require('./src/logger')
 
 async function main() {
@@ -11,13 +10,13 @@ async function main() {
   const devices = getInputList('devices')
   const runs = core.getInput('runs')
 
-  // Debug all config sent by user
+  // Debug all config sent by user except the api key
   debug(`Config urls: ${urls}`)
   debug(`Config devices: ${devices}`)
   debug(`Config runs: ${runs}`)
 
   for (const url of urls) {
-    await runLh(url, 'mobile')
+    await runLh(url, 'mobile', core.getInput('api_key'))
   }
 }
 

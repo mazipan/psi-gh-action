@@ -1,7 +1,7 @@
 on: [push]
 
 jobs:
-  hello_world_job:
+  psi_web_perf_action:
     runs-on: ubuntu-latest
     name: Example job
     steps:
@@ -10,10 +10,11 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Hello world action step
+      - name: Running PSI
         uses: ./ # Uses an action in the root directory
-        id: hello
+        id: psi_job
         with:
+          api_key: ${{ secrets.PSI_API_KEY }}
           urls: |
             https://mazipan.space/
             https://mazipan.space/about/
@@ -22,7 +23,3 @@ jobs:
             mobile
             desktop
           runs: 1
-
-      # Use the output from the `hello` step
-      - name: Get the output time
-        run: echo "The time was ${{ steps.hello.outputs.time }}"

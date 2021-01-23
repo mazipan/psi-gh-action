@@ -2,17 +2,19 @@ name: "static-web-perf-action"
 description: "Github Action to generate web performance report in static JavaScript and JSON file using Lighthouse"
 
 inputs:
+  api_key:
+    description: "PageSpeedInsight API key"
+    required: true
   urls:
     description: "List of URL(s) to analyze"
     required: true
   devices:
     description: "Device(s) used for test"
-    required: true
     default: mobile
   runs:
     description: "Number of runs to do per URL"
-    default: 3
+    default: 1
 
 runs:
   using: "node12"
-  main: "index.js"
+  main: "dist/index.js"

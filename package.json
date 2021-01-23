@@ -4,7 +4,7 @@
   "description": "Github Action to generate web performance report in static JavaScript and JSON file using Lighthouse",
   "main": "index.js",
   "scripts": {
-    "build": "ncc build index.ts --license licenses.txt -m",
+    "build": "ncc build index.js --license licenses.txt -m",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -20,8 +20,7 @@
   "dependencies": {
     "@actions/core": "^1.2.6",
     "@actions/github": "^4.0.0",
-    "chrome-launcher": "^0.13.4",
-    "lighthouse": "^7.0.0",
+    "node-fetch": "^2.6.1",
     "lodash": "^4.17.20"
   }
 }

@@ -1,41 +1,29 @@
-const chromeLauncher = require('chrome-launcher')
-const lighthouse = require('lighthouse')
+const fetch = require('node-fetch')
 const get = require('lodash/get')
 
-exports.runLh = async function runLh(url, device) {
-  const chrome = await chromeLauncher.launch({
-    port: 9222,
-    logLevel: 'silent',
-    chromeFlags: ['--headless', '--disable-gpu']
+exports.runLh = async function runLh(url, device, apiKey) {
+  const URL = `https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url=${encodeURIComponent(
+    url
+  )}&key=${apiKey}&strategy=${device}`
+
+  const resp = await fetch(URL, {
+    method: 'GET',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json'
+    }
   })
 
-  const defaultOptions = {
-    logLevel: 'error',
-    output: 'json',
-    formFactor: device,
-    onlyCategories: ['performance'],
-    onlyAudits: [
-      'first-contentful-paint',
-      'largest-contentful-paint',
-      'cumulative-layout-shift',
-      'first-contentful-paint',
-      'total-blocking-time',
-      'speed-index',
-      'first-cpu-idle',
-      'interactive'
-    ],
-    port: chrome.port
-  }
+  const result = await resp.json()
+  const loadingExperience = get(result, 'loadingExperience', {})
+  const lighthouseResult = get(result, 'lighthouseResult', {})
 
-  const runnerResult = await lighthouse(url, defaultOptions)
-
-  const lighthouseResult = runnerResult.lhr
-
-  console.log('Report is done for', runnerResult.lhr.finalUrl)
-  console.log('Performance score was', runnerResult.lhr.categories.performance.score * 100)
+  const fieldData = get(loadingExperience, 'metrics', {})
 
   const categories = get(lighthouseResult, 'categories', {})
   const audits = get(lighthouseResult, 'audits', {})
+
+  const fid = get(fieldData, 'FIRST_INPUT_DELAY_MS.percentile', 0)
 
   const fcp = get(audits, 'first-contentful-paint.numericValue', 0)
   const lcp = get(audits, 'largest-contentful-paint.numericValue', 0)
@@ -47,10 +35,18 @@ exports.runLh = async function runLh(url, device) {
 
   const perf = get(categories, 'performance.score', 0)
 
+  const totalResourcesArr = get(audits, 'resource-summary.details.items', [])
+  const totalResources = totalResourcesArr.length > 0 ? totalResourcesArr[0] : {}
+
+  const req = get(totalResources, 'requestCount', 0)
+  const size = get(totalResources, 'size', 0) || get(totalResources, 'transferSize', 0) || 0
+
   await chrome.kill()
 
   const response = {
     perf,
+
+    fid,
 
     fcp,
     lcp,
@@ -58,7 +54,10 @@ exports.runLh = async function runLh(url, device) {
     fci,
     tbt,
     tti,
-    si
+    si,
+
+    req,
+    size
   }
 
   return response
