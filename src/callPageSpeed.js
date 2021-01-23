@@ -41,8 +41,6 @@ exports.callPageSpeed = async function callPageSpeed(url, device, apiKey) {
   const req = get(totalResources, 'requestCount', 0)
   const size = get(totalResources, 'size', 0) || get(totalResources, 'transferSize', 0) || 0
 
-  await chrome.kill()
-
   const response = {
     perf,
 
