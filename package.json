@@ -1,0 +1,24 @@
+{
+  "name": "static-web-perf-action",
+  "version": "1.0.0",
+  "description": "Github Action to generate web performance report in static JavaScript and JSON file using Lighthouse",
+  "main": "index.js",
+  "scripts": {
+		"build": "ncc build index.js --license licenses.txt",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mazipan/static-web-perf-action.git"
+  },
+  "author": "Irfan Maulana",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mazipan/static-web-perf-action/issues"
+  },
+  "homepage": "https://github.com/mazipan/static-web-perf-action#readme",
+  "dependencies": {
+    "@actions/core": "^1.2.6",
+    "@actions/github": "^4.0.0"
+  }
+}
