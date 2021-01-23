@@ -20,7 +20,7 @@
   "dependencies": {
     "@actions/core": "^1.2.6",
     "@actions/github": "^4.0.0",
-    "node-fetch": "^2.6.1",
-    "lodash": "^4.17.20"
+    "lodash": "^4.17.20",
+    "node-fetch": "^2.6.1"
   }
 }

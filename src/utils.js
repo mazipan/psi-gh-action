@@ -9,7 +9,7 @@ const spawn = require('child_process').spawn
 exports.getInputList = function getInputList(arg, separator = '\n') {
   const input = core.getInput(arg)
   if (!input) return []
-  return input.split(separator).map((url) => url.trim())
+  return input.split(separator).map((url) => url.trim()).filter(Boolean)
 }
 
 /**
