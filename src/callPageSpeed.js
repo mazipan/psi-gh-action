@@ -1,7 +1,7 @@
 const fetch = require('node-fetch')
 const get = require('lodash/get')
 
-exports.runLh = async function runLh(url, device, apiKey) {
+exports.callPageSpeed = async function callPageSpeed(url, device, apiKey) {
   const URL = `https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url=${encodeURIComponent(
     url
   )}&key=${apiKey}&strategy=${device}`
