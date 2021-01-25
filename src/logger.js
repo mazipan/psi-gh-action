@@ -4,6 +4,7 @@ const core = require('@actions/core')
  * Console info
  *
  * @param {string} message
+ * @returns void
  */
 exports.info = function info(message) {
   core.info(`${message}`)
@@ -13,22 +14,26 @@ exports.info = function info(message) {
  * Console warn
  *
  * @param {string} message
+ * @returns void
  */
 exports.warn = function warn(message) {
   core.warn(`${message}`)
 }
+
 /**
- * Console info
+ * Start the console group
  *
  * @param {string} message
+ * @returns void
  */
 exports.startGroup = function startGroup(message) {
   core.startGroup(`${message}`)
 }
 
-
 /**
- * Console info
+ * End the console group
+ *
+ * @returns void
  */
 exports.endGroup = function endGroup() {
   core.endGroup()
