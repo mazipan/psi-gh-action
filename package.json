@@ -7,7 +7,7 @@
     "postinstall": "husky install",
     "prepublishOnly": "pinst --disable",
     "postpublish": "pinst --enable",
-    "build": "ncc build index.js --license licenses.txt -m  --stats-out stats.json",
+    "build": "ncc build index.js --license licenses.txt -m",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
