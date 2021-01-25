@@ -10,6 +10,14 @@ exports.info = function info(message) {
 }
 
 /**
+ * Console warn
+ *
+ * @param {string} message
+ */
+exports.warn = function warn(message) {
+  core.warn(`${message}`)
+}
+/**
  * Console info
  *
  * @param {string} message

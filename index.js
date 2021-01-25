@@ -1,11 +1,11 @@
 const core = require('@actions/core')
-// const github = require('@actions/github')
 const { getInputList } = require('./src/utils')
-const { info } = require('./src/logger')
+const { info, warn } = require('./src/logger')
 const { callPageSpeed } = require('./src/callPageSpeed')
 
 async function main() {
-  info('"psi-github-action" starting...')
+  warn('🐯 "psi-github-action" starting...')
+  info('')
 
   const urls = getInputList('urls')
   const devices = getInputList('devices')
@@ -26,6 +26,6 @@ main()
     process.exit(1)
   })
   .then(() => {
-    info(`Completed in ${process.uptime()}s.`)
+    info(`✅ Completed in ${process.uptime()}s.`)
     process.exit()
   })

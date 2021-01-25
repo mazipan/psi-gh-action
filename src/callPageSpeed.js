@@ -5,7 +5,6 @@ const { info, startGroup, endGroup } = require('./logger')
 exports.callPageSpeed = async function callPageSpeed(url, device, apiKey) {
   info(`> URL    : ${url}`)
   info(`> Device : ${device}`)
-  info(`\n`)
   const URL = `https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url=${encodeURIComponent(
     url
   )}&key=${apiKey}&strategy=${device}`
@@ -85,6 +84,6 @@ exports.callPageSpeed = async function callPageSpeed(url, device, apiKey) {
   info(`Total Resources Size     : ${size}`)
   endGroup()
 
-  info(`\n\n`)
+  info('')
   return response
 }
