@@ -1,5 +1,10 @@
 name: "psi-gh-action"
 description: "Github Action to generate web performance report using PageSpeedInsight"
+author: Irfan Maulana <https://github.com/mazipan>
+
+branding:
+  icon: 'zap'
+  color: 'green'
 
 inputs:
   api_key:
