@@ -1,13 +1,11 @@
 const fetch = require('node-fetch')
 const get = require('lodash/get')
-const { info } = require('./logger')
+const { info, startGroup, endGroup } = require('./logger')
 
 exports.callPageSpeed = async function callPageSpeed(url, device, apiKey) {
-  info(`CONFIGURATION`)
-  info(`---------------------------`)
   info(`> URL    : ${url}`)
   info(`> Device : ${device}`)
-  info(`---------------------------`)
+  info(`\n`)
   const URL = `https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url=${encodeURIComponent(
     url
   )}&key=${apiKey}&strategy=${device}`
@@ -64,29 +62,29 @@ exports.callPageSpeed = async function callPageSpeed(url, device, apiKey) {
     size
   }
 
-  info(`--------- RESULT ----------`)
+  startGroup(`Performace Score`)
   info(`Performance: ${perf}`)
-  info(`---------------------------`)
+  endGroup()
 
-  info(`----- CORE WEB VITAL ------`)
+  startGroup(`Core Web Vitals`)
   info(`First Input Delay        : ${fid}`)
   info(`Largest Contentful Paint : ${lcp}`)
   info(`Cumulative Layout Shift  : ${cls}`)
-  info(`---------------------------`)
+  endGroup()
 
-  info(`------ OTHER TIMINGS ------`)
+  startGroup(`Other Timings`)
   info(`First Contentful Paint   : ${fcp}`)
   info(`First CPU Idle           : ${fci}`)
   info(`Total Blocking Time      : ${tbt}`)
   info(`Time to Interactive      : ${tti}`)
   info(`Speed Index              : ${si}`)
-  info(`---------------------------`)
+  endGroup()
 
-  info(`-------- RESOURCES --------`)
+  startGroup(`Resources`)
   info(`Total Resources Count    : ${req}`)
   info(`Total Resources Size     : ${size}`)
-  info(`---------------------------`)
+  endGroup()
 
-  info(`=============================================`)
+  info(`\n\n`)
   return response
 }

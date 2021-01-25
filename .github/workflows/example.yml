@@ -18,7 +18,6 @@ jobs:
           urls: |
             https://mazipan.space/
             https://mazipan.space/about/
-            https://mazipan.space/talks/
           devices: |
             mobile
             desktop

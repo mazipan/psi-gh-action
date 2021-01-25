@@ -2,6 +2,8 @@
 
 Github Action to generate web performance report using PageSpeedInsight
 
+![.github/workflows/example.yml](https://github.com/mazipan/psi-gh-action/workflows/.github/workflows/example.yml/badge.svg?branch=master)
+
 ## Inputs
 
 ### `api_key`
