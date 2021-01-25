@@ -1,10 +1,10 @@
 const core = require('@actions/core')
 const { getInputList } = require('./src/utils')
-const { info, warn } = require('./src/logger')
+const { info } = require('./src/logger')
 const { callPageSpeed } = require('./src/callPageSpeed')
 
 async function main() {
-  warn('🐯 "psi-github-action" starting...')
+  info('🐯 "psi-github-action" starting...')
   info('')
 
   const urls = getInputList('urls')

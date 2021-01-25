@@ -11,16 +11,6 @@ exports.info = function info(message) {
 }
 
 /**
- * Console warn
- *
- * @param {string} message
- * @returns void
- */
-exports.warn = function warn(message) {
-  core.warn(`${message}`)
-}
-
-/**
  * Start the console group
  *
  * @param {string} message
