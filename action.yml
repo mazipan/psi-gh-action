@@ -1,12 +1,12 @@
-name: "static-web-perf-action"
-description: "Github Action to generate web performance report in static JavaScript and JSON file using Lighthouse"
+name: "psi-gh-action"
+description: "Github Action to generate web performance report using PageSpeedInsight"
 
 inputs:
   api_key:
     description: "PageSpeedInsight API key"
     required: true
   urls:
-    description: "List of URL(s) to analyze"
+    description: "List of URL(s) to be analyzed"
     required: true
   devices:
     description: "Device(s) used for test"

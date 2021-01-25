@@ -5,14 +5,18 @@ const { info } = require('./src/logger')
 const { callPageSpeed } = require('./src/callPageSpeed')
 
 async function main() {
-  info('Action starting...')
+  info('"psi-github-action" starting...')
 
   const urls = getInputList('urls')
-  // const devices = getInputList('devices')
-  // const runs = core.getInput('runs')
+  const devices = getInputList('devices')
+  const runs = core.getInput('runs')
 
   for (const url of urls) {
-    await callPageSpeed(url, 'mobile', core.getInput('api_key'))
+    for (const device of devices) {
+      for (let index = 0; index < runs; index++) {
+        await callPageSpeed(url, device, core.getInput('api_key'))
+      }
+    }
   }
 }
 

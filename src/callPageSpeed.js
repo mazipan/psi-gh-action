@@ -3,7 +3,11 @@ const get = require('lodash/get')
 const { info } = require('./logger')
 
 exports.callPageSpeed = async function callPageSpeed(url, device, apiKey) {
-  info(`Run PSI for ${url}, ${device}`)
+  info(`CONFIGURATION`)
+  info(`---------------------------`)
+  info(`> URL    : ${url}`)
+  info(`> Device : ${device}`)
+  info(`---------------------------`)
   const URL = `https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url=${encodeURIComponent(
     url
   )}&key=${apiKey}&strategy=${device}`
@@ -47,10 +51,10 @@ exports.callPageSpeed = async function callPageSpeed(url, device, apiKey) {
     perf,
 
     fid,
-
-    fcp,
     lcp,
     cls,
+
+    fcp,
     fci,
     tbt,
     tti,
@@ -60,6 +64,29 @@ exports.callPageSpeed = async function callPageSpeed(url, device, apiKey) {
     size
   }
 
-  info(`Performance score: ${perf}`)
+  info(`--------- RESULT ----------`)
+  info(`Performance: ${perf}`)
+  info(`---------------------------`)
+
+  info(`----- CORE WEB VITAL ------`)
+  info(`First Input Delay        : ${fid}`)
+  info(`Largest Contentful Paint : ${lcp}`)
+  info(`Cumulative Layout Shift  : ${cls}`)
+  info(`---------------------------`)
+
+  info(`------ OTHER TIMINGS ------`)
+  info(`First Contentful Paint   : ${fcp}`)
+  info(`First CPU Idle           : ${fci}`)
+  info(`Total Blocking Time      : ${tbt}`)
+  info(`Time to Interactive      : ${tti}`)
+  info(`Speed Index              : ${si}`)
+  info(`---------------------------`)
+
+  info(`-------- RESOURCES --------`)
+  info(`Total Resources Count    : ${req}`)
+  info(`Total Resources Size     : ${size}`)
+  info(`---------------------------`)
+
+  info(`=============================================`)
   return response
 }

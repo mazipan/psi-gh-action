@@ -1,21 +1,40 @@
-# static-web-perf-action
+# 🐯 psi-gh-action
 
-Github Action to generate web performance report in static JavaScript and JSON file using Lighthouse
+Github Action to generate web performance report using PageSpeedInsight
 
 ## Inputs
 
-### `who-to-greet`
+### `api_key`
 
-**Required** The name of the person to greet. Default `"World"`.
+**Required** PageSpeedInsight API key.
+### `urls`
 
-## Outputs
+**Required** List of URL(s) to be analyzed.
 
-### `time`
+### `devices`
 
-The time we greeted you.
+**Optional** Device(s) used for test. Default is `mobile`.
+
+### `runs`
+
+**Optional** Number of runs to do per URL. Default is `1`.
 
 ## Example usage
 
-uses: actions/hello-world-javascript-action@v1.1
+```yaml
+uses: mazipan/psi-gh-action
 with:
-  who-to-greet: 'Mona the Octocat'
+  api_key: ${{ secrets.PSI_API_KEY }}
+  urls: |
+    https://mazipan.space/
+    https://mazipan.space/about/
+    https://mazipan.space/talks/
+  devices: |
+    mobile
+    desktop
+  runs: 1
+```
+
+## TODOs
+
+- [ ] Generate static file summary report in `data` dir then push back to the source
