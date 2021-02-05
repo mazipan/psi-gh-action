@@ -12,7 +12,6 @@ inputs:
     required: true
   token:
     description: "Github token"
-    required: true
   branch:
     description: "Target branch to save report file"
     default: master
