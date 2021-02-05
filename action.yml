@@ -10,6 +10,15 @@ inputs:
   api_key:
     description: "PageSpeedInsight API key"
     required: true
+  token:
+    description: "Github token"
+    required: true
+  branch:
+    description: "Target branch to save report file"
+    default: master
+  push_back:
+    description: "Push back the report file to the repository"
+    default: false
   urls:
     description: "List of URL(s) to be analyzed"
     required: true

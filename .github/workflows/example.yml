@@ -22,3 +22,6 @@ jobs:
             mobile
             desktop
           runs: 1
+          branch: master
+          push_back: true
+          token: ${{ secrets.GITHUB_TOKEN }}

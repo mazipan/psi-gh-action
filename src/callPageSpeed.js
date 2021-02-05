@@ -45,6 +45,9 @@ exports.callPageSpeed = async function callPageSpeed(url, device, apiKey) {
   const size = get(totalResources, 'size', 0) || get(totalResources, 'transferSize', 0) || 0
 
   const response = {
+    url,
+    device,
+
     perf,
 
     fid,

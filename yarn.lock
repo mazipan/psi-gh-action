@@ -7,6 +7,13 @@
   resolved "https://registry.yarnpkg.com/@actions/core/-/core-1.2.6.tgz#a78d49f41a4def18e88ce47c2cac615d5694bf09"
   integrity sha512-ZQYitnqiyBc3D+k7LsgSBmMDVkOVidaagDG7j3fOym77jNunWRuYx7VSHa9GNfFZh+zh61xsCjRj4JxMZlDqTA==
 
+"@actions/exec@^1.0.4":
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/@actions/exec/-/exec-1.0.4.tgz#99d75310e62e59fc37d2ee6dcff6d4bffadd3a5d"
+  integrity sha512-4DPChWow9yc9W3WqEbUj8Nr86xkpyE29ZzWjXucHItclLbEW6jr80Zx4nqv18QL6KK65+cifiQZXvnqgTV6oHw==
+  dependencies:
+    "@actions/io" "^1.0.1"
+
 "@actions/github@^4.0.0":
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/@actions/github/-/github-4.0.0.tgz#d520483151a2bf5d2dc9cd0f20f9ac3a2e458816"
@@ -23,6 +30,11 @@
   integrity sha512-0O4SsJ7q+MK0ycvXPl2e6bMXV7dxAXOGjrXS1eTF9s2S401Tp6c/P3c3Joz04QefC1J6Gt942Wl2jbm3f4mLcg==
   dependencies:
     tunnel "0.0.6"
+
+"@actions/io@^1.0.1":
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/@actions/io/-/io-1.0.2.tgz#2f614b6e69ce14d191180451eb38e6576a6e6b27"
+  integrity sha512-J8KuFqVPr3p6U8W93DOXlXW6zFvrQAJANdS+vw0YhusLIq+bszW8zmK2Fh1C2kDPX8FMvwIl1OUcFgvJoXLbAg==
 
 "@babel/code-frame@^7.0.0":
   version "7.12.11"
