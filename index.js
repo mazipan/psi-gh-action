@@ -33,7 +33,6 @@ async function main() {
 
   if (isPushBack) {
     core.setCommandEcho(true)
-    info('pushing back to source repo...')
     await pushBack(finalResponse, token, branch)
   }
 }

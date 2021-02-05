@@ -9,7 +9,10 @@ const spawn = require('child_process').spawn
 exports.getInputList = function getInputList(arg, separator = '\n') {
   const input = core.getInput(arg)
   if (!input) return []
-  return input.split(separator).map((url) => url.trim()).filter(Boolean)
+  return input
+    .split(separator)
+    .map((url) => url.trim())
+    .filter(Boolean)
 }
 
 /**
@@ -30,4 +33,16 @@ exports.exec = function exec(cmd, args = []) {
     })
     app.on('error', reject)
   })
+}
+
+exports.formatDate = function formatDate(date) {
+  let d = new Date(date),
+    month = '' + (d.getMonth() + 1),
+    day = '' + d.getDate(),
+    year = d.getFullYear()
+
+  if (month.length < 2) month = '0' + month
+  if (day.length < 2) day = '0' + day
+
+  return [year, month, day].join('-')
 }
