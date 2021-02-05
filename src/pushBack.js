@@ -7,7 +7,7 @@ exports.pushBack = async function pushBack(data, token, branch) {
   const context = github.context
   const remote_repo = `https://${context.actor}:${token}@github.com/${context.repo.owner}/${context.repo.repo}.git`
 
-  await fs.promises.writeFile('LAST_UPDATED.txt', `${new Date().toISOString()}`, { mode: 'utf-8'})
+  await fs.promises.writeFile('LAST_UPDATED.txt', `${new Date().toISOString()}`)
   info(await exec.exec(`ls`))
 
   info(await exec.exec(`git status`))
