@@ -1,13 +1,15 @@
 const github = require('@actions/github')
 const exec = require('@actions/exec')
+const { info } = require('./logger')
 
 exports.pushBack = async function pushBack(data, token, branch) {
   const context = github.context
   const remote_repo = `https://${context.actor}:${token}@github.com/${context.repo.owner}/${context.repo.repo}.git`
 
   await exec.exec(`echo "${new Date().toISOString()}" > LAST_UPDATED.txt`)
+  info(await exec.exec(`ls`))
 
-  await exec.exec(`git status`)
+  info(await exec.exec(`git status`))
   await exec.exec(`git config --local user.email "actions@github.com"`)
   await exec.exec(`git config --local user.name "Github Actions"`)
   await exec.exec(`git add LAST_UPDATED.txt`)

@@ -17,10 +17,8 @@ jobs:
           api_key: ${{ secrets.PSI_API_KEY }}
           urls: |
             https://mazipan.space/
-            https://mazipan.space/about/
           devices: |
             mobile
-            desktop
           runs: 1
           branch: master
           push_back: true

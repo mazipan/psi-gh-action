@@ -32,6 +32,7 @@ async function main() {
   }
 
   if (isPushBack) {
+    info('pushing back to source repo...')
     pushBack(finalResponse, token, branch)
   }
 }
