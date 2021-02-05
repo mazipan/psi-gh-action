@@ -3,8 +3,8 @@ const get = require('lodash/get')
 const { info, startGroup, endGroup } = require('./logger')
 
 exports.callPageSpeed = async function callPageSpeed(url, device, apiKey) {
-  info(`> URL    : ${url}`)
-  info(`> Device : ${device}`)
+  info(`👉 URL    : ${url}`)
+  info(`👉 Device : ${device}`)
   const URL = `https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url=${encodeURIComponent(
     url
   )}&key=${apiKey}&strategy=${device}`

@@ -6,6 +6,7 @@ const { callPageSpeed } = require('./src/callPageSpeed')
 const { pushBack } = require('./src/pushBack')
 
 async function main() {
+  core.setCommandEcho(true)
   info('🐯 "psi-github-action" starting...')
   info('')
 
