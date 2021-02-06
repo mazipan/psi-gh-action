@@ -6,6 +6,10 @@ Github Action to generate web performance report using PageSpeedInsight
 
 ![Screenshoot](./screenshoot.jpg)
 
+## Motivations
+
+I want to create an open web performance report for my personal blog, I want my reader can access my web performance report as easy as they read my articles. That's why I build this Github Actions, so whenever I need to show web performance report in my open source project then I just need to using this Actions.
+
 ## Inputs
 
 | Input       | Description                         | Required                  | Default |
@@ -38,7 +42,49 @@ Github Action to generate web performance report using PageSpeedInsight
     token: ${{ secrets.GITHUB_TOKEN }}
 ```
 
+## Implementation notes
+
+- Since this Actions will push report file to your main branch directly, so I recommend to not use `on push` trigger for this Actions. Please use a cron scheduler instead
+- This Actions will need `actions/checkout@v2` to enable `push back` feature.
+
+## Using with `checkout@v2` and cron scheduler
+
+```yml
+name: Generate PSI report
+on:
+  schedule:
+    - cron: '30 2 * * 6'
+
+jobs:
+  auto_commit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+
+      - name: psi-gh-action
+        uses: mazipan/psi-gh-action@1.1.0
+        with:
+          api_key: ${{ secrets.PSI_API_KEY }}
+          urls: |
+            https://mazipan.space/
+          devices: |
+            mobile
+            desktop
+          runs: 1
+          branch: master
+          push_back: true
+          token: ${{ secrets.GITHUB_TOKEN }}
+```
+
+## Example UI for Next.js project
+
+- See commit [c865772](https://github.com/mazipan/mazipan.space/commit/c86577204951760750b56f9c30660d0189cdad07) for implementation detail. See [mazipan.space/speed](https://mazipan.space/speed) for the UI result
+
 ## Additional Resources
+
 ### How to add new secret in Github Actions
 
 https://docs.github.com/en/actions/reference/encrypted-secrets
