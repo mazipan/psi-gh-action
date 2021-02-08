@@ -26,7 +26,7 @@ I want to create an open web performance report for my personal blog, I want my 
 
 ```yaml
 - name: psi-gh-action
-  uses: mazipan/psi-gh-action@1.0.0
+  uses: mazipan/psi-gh-action@1.2.0
   with:
     api_key: ${{ secrets.PSI_API_KEY }}
     urls: |
@@ -65,7 +65,7 @@ jobs:
           fetch-depth: 0
 
       - name: psi-gh-action
-        uses: mazipan/psi-gh-action@1.1.0
+        uses: mazipan/psi-gh-action@1.2.0
         with:
           api_key: ${{ secrets.PSI_API_KEY }}
           urls: |
@@ -88,7 +88,7 @@ This Github Actions will generate these following files:
 
 ```js
 {
-  "latest": `report-YYYY-MM-DD.json`,
+  "latest": "report-YYYY-MM-DD.json",
   "all": ["report-YYYY-MM-DD.json"],
 }
 ```
@@ -101,18 +101,18 @@ This Github Actions will generate these following files:
   "reports": [
     {
       "url": "https://mazipan.space/",
-      "device": "mobile",
-      "perf": 0.78, // Performance score by PSI
-      "fid": 16,    // First Input Delay based on Chrome UX field data
-      "lcp": 2775,  // Largest Contentful Paint
-      "cls": 0,     // Cummulative Layout Shift
-      "fcp": 2100,  // First Contentful Painy
-      "fci": 3533,  // First CPU Idle
-      "tbt": 591,   // Total Blocking Time
-      "tti": 5656.5,// Time to Interactive
-      "si": 2100,   // Speed Index
-      "req": 42,    // Total count of all resources requested by the page
-      "size": 394708// Total size of all resources requested by the page
+      "device": "mobile", // Device type for running Lighthouse
+      "perf": 0.78,       // Performance score by PSI
+      "fid": 16,          // First Input Delay based on Chrome UX field data
+      "lcp": 2775,        // Largest Contentful Paint
+      "cls": 0,           // Cummulative Layout Shift
+      "fcp": 2100,        // First Contentful Painy
+      "fci": 3533,        // First CPU Idle
+      "tbt": 591,         // Total Blocking Time
+      "tti": 5656.5,      // Time to Interactive
+      "si": 2100,         // Speed Index
+      "req": 42,          // Total count of all resources requested by the page
+      "size": 394708      // Total size of all resources requested by the page
     }
   ]
 }
