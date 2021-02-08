@@ -56,7 +56,7 @@ on:
     - cron: '30 2 * * 6'
 
 jobs:
-  auto_commit:
+  run_psi:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -79,6 +79,44 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
 ```
 
+## Report file generated
+
+This Github Actions will generate these following files:
+
+- File `psi-reports/LAST_UPDATED.txt`
+- File `psi-reports/available-reports.json`
+
+```js
+{
+  "latest": `report-YYYY-MM-DD.json`,
+  "all": ["report-YYYY-MM-DD.json"],
+}
+```
+
+- File `psi-reports/report-YYYY-MM-DD.json`
+
+```js
+{
+  "timestamp": "2021-02-05T16:12:02.119Z",
+  "reports": [
+    {
+      "url": "https://mazipan.space/",
+      "device": "mobile",
+      "perf": 0.78, // Performance score by PSI
+      "fid": 16,    // First Input Delay based on Chrome UX field data
+      "lcp": 2775,  // Largest Contentful Paint
+      "cls": 0,     // Cummulative Layout Shift
+      "fcp": 2100,  // First Contentful Painy
+      "fci": 3533,  // First CPU Idle
+      "tbt": 591,   // Total Blocking Time
+      "tti": 5656.5,// Time to Interactive
+      "si": 2100,   // Speed Index
+      "req": 42,    // Total count of all resources requested by the page
+      "size": 394708// Total size of all resources requested by the page
+    }
+  ]
+}
+```
 ## Example UI for Next.js project
 
 - See commit [c865772](https://github.com/mazipan/mazipan.space/commit/c86577204951760750b56f9c30660d0189cdad07) for implementation detail. See [mazipan.space/speed](https://mazipan.space/speed) for the UI result
