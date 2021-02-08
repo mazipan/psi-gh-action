@@ -1,4 +1,8 @@
-on: [push]
+on:
+  push:
+    paths-ignore:
+    - "psi-reports/**"
+    - "dist/**"
 
 jobs:
   psi_web_perf_action:
