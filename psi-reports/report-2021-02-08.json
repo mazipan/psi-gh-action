@@ -1,20 +1,20 @@
 {
-  "timestamp": "2021-02-08T18:04:07.842Z",
+  "timestamp": "2021-02-08T18:08:36.045Z",
   "reports": [
     {
       "url": "https://mazipan.space/",
       "device": "mobile",
-      "perf": 0.88,
+      "perf": 0.85,
       "fid": 15,
       "lcp": 1620,
       "cls": 0,
       "fcp": 1545,
-      "fci": 3457,
-      "tbt": 439,
-      "tti": 5690,
-      "si": 1545,
+      "fci": 4108,
+      "tbt": 512,
+      "tti": 5923,
+      "si": 2261.0232272298626,
       "req": 45,
-      "size": 402302
+      "size": 402307
     }
   ]
 }
