@@ -64,17 +64,17 @@ exports.callPageSpeed = async function callPageSpeed(url, device = 'mobile', api
     size
   }
 
-  startGroup(`Performace Score`)
-  info(`Performance: ${perf}`)
+  startGroup(`⚡️ Performace Score`)
+  info(`Performance: ${perf * 100}`)
   endGroup()
 
-  startGroup(`Core Web Vitals`)
+  startGroup(`🚀 Core Web Vitals`)
   info(`First Input Delay        : ${fid}`)
   info(`Largest Contentful Paint : ${lcp}`)
   info(`Cumulative Layout Shift  : ${cls}`)
   endGroup()
 
-  startGroup(`Other Timings`)
+  startGroup(`⏱ Other Timings`)
   info(`First Contentful Paint   : ${fcp}`)
   info(`First CPU Idle           : ${fci}`)
   info(`Total Blocking Time      : ${tbt}`)
@@ -82,7 +82,7 @@ exports.callPageSpeed = async function callPageSpeed(url, device = 'mobile', api
   info(`Speed Index              : ${si}`)
   endGroup()
 
-  startGroup(`Resources`)
+  startGroup(`📦 Resources`)
   info(`Total Resources Count    : ${req}`)
   info(`Total Resources Size     : ${size}`)
   endGroup()

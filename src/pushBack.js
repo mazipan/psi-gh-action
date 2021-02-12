@@ -12,6 +12,7 @@ const REPORT_FILE = `${REPORT_DIR}/report-${TODAY}.json`
 const ALL_REPORT_FILE = `${REPORT_DIR}/available-reports.json`
 
 exports.pushBack = async function pushBack(data, stringComments, token, branch) {
+  info(`> Trying to push_back to the repository...`)
   const context = github.context
   const remote_repo = `https://${context.actor}:${token}@github.com/${context.repo.owner}/${context.repo.repo}.git`
 
@@ -49,6 +50,14 @@ exports.pushBack = async function pushBack(data, stringComments, token, branch) 
   ${stringComments}
       `,
     })
+
+    await octokit.repos.createCommitStatus({
+      owner: context.repo.owner,
+      repo: context.repo.repo,
+      sha: context.sha,
+      state: success,
+      description: 'Success running "psi-github-action"'
+    });
   } catch (error) {
     info(error)
   }

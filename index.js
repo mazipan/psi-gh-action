@@ -21,28 +21,31 @@ async function main() {
   let allResponse = []
   let stringComments = '';
   for (const url of urls) {
-    stringComments += `## 👉 URL    : ${url}\n`
+    stringComments += `## Report for ${url}\n`
     for (const device of devices) {
-      stringComments += `### 👉 Device : ${device}\n`
+      stringComments += `### ${device === 'mobile' ? '📱' : '💻'} Device : ${device}\n`
       for (let index = 0; index < runs; index++) {
         const response = await callPageSpeed(url.trim(), device.trim(), core.getInput('api_key').trim())
         allResponse = allResponse.concat([], [response])
         stringComments += `
- **Core Web Vitals**
- First Input Delay        : ${response.fid}
- Largest Contentful Paint : ${response.lcp}
- Cumulative Layout Shift  : ${response.cls}
+ **⚡️ Performace Score**
+ Performance: **${perf * 100}**
 
- **Other Timings**
- First Contentful Paint   : ${response.fcp}
- First CPU Idle           : ${response.fci}
- Total Blocking Time      : ${response.tbt}
- Time to Interactive      : ${response.tti}
- Speed Index              : ${response.si}
+ **🚀 Core Web Vitals**
+ First Input Delay        : **${response.fid}**
+ Largest Contentful Paint : **${response.lcp}**
+ Cumulative Layout Shift  : **${response.cls}**
 
- **Resources**
- Total Resources Count    : ${response.req}
- Total Resources Size     : ${response.size}
+ **⏱ Other Timings**
+ First Contentful Paint   : **${response.fcp}**
+ First CPU Idle           : **${response.fci}**
+ Total Blocking Time      : **${response.tbt}**
+ Time to Interactive      : **${response.tti}**
+ Speed Index              : **${response.si}**
+
+ **📦 Resources**
+ Total Resources Count    : **${response.req}**
+ Total Resources Size     : **${response.size}**
   `
       }
     }
