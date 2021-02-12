@@ -24,6 +24,7 @@ jobs:
             https://mazipan.space/cerita-anak-kampung-menjadi-programmer
           devices: |
             mobile
+            desktop
           runs: 1
           branch: master
           push_back: true
