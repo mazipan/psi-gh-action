@@ -3,6 +3,7 @@ const exec = require('@actions/exec')
 const io = require('@actions/io')
 const fs = require('fs')
 const { formatDate } = require('./utils')
+const { info } = require('./logger')
 
 const TODAY = formatDate(new Date());
 const REPORT_DIR = 'psi-reports'
@@ -35,13 +36,20 @@ exports.pushBack = async function pushBack(data, stringComments, token, branch) 
   const cmd = `git push "${remote_repo}" HEAD:${branch} --follow-tags --force`
   await exec.exec(`${cmd}`)
 
-  const octokit = github.getOctokit(token)
-  octokit.repos.createCommitComment({
-    ...context.repo,
-    commit_sha: context.sha,
-    body: `
-**PSI Report by 🐯 "psi-github-action":**
-${stringComments}
-    `,
-  })
+
+  try {
+    info(`> Trying to create comment on commit: ${context.sha}`)
+    const octokit = github.getOctokit(token)
+    await octokit.repos.createCommitComment({
+      owner: context.repo.owner,
+      repo: context.repo.repo,
+      commit_sha: context.sha,
+      body: `
+  **PSI Report by 🐯 "psi-github-action":**
+  ${stringComments}
+      `,
+    })
+  } catch (error) {
+    info(error)
+  }
 }

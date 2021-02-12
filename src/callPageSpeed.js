@@ -7,7 +7,7 @@ exports.callPageSpeed = async function callPageSpeed(url, device = 'mobile', api
   info(`👉 Device : ${device}`)
   const URL = `https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url=${encodeURIComponent(
     url
-  )}&key=${apiKey}&strategy=${device}`
+  )}&key=${apiKey}&strategy=${device}&datetime${new Date().getTime()}`
 
   const resp = await fetch(URL, {
     method: 'GET',
