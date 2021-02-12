@@ -29,20 +29,20 @@ async function main() {
         allResponse = allResponse.concat([], [response])
         stringComments += `
  **Core Web Vitals**
- First Input Delay        : ${fid}
- Largest Contentful Paint : ${lcp}
- Cumulative Layout Shift  : ${cls}
+ First Input Delay        : ${response.fid}
+ Largest Contentful Paint : ${response.lcp}
+ Cumulative Layout Shift  : ${response.cls}
 
  **Other Timings**
- First Contentful Paint   : ${fcp}
- First CPU Idle           : ${fci}
- Total Blocking Time      : ${tbt}
- Time to Interactive      : ${tti}
- Speed Index              : ${si}
+ First Contentful Paint   : ${response.fcp}
+ First CPU Idle           : ${response.fci}
+ Total Blocking Time      : ${response.tbt}
+ Time to Interactive      : ${response.tti}
+ Speed Index              : ${response.si}
 
  **Resources**
- Total Resources Count    : ${req}
- Total Resources Size     : ${size}
+ Total Resources Count    : ${response.req}
+ Total Resources Size     : ${response.size}
   `
       }
     }
