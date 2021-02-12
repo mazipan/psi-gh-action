@@ -18,13 +18,19 @@ async function main() {
     core.setFailed('"token" is required, please add your PSI API KEY')
   }
 
+  // collect as array, so we can use for of
+  const arrRuns = []
+  for (let index = 0; index < runs; index++) {
+    arrRuns.push(index)
+  }
+
   let allResponse = []
   let stringComments = '';
   for (const url of urls) {
     stringComments += `## Report for ${url}\n`
     for (const device of devices) {
       stringComments += `### ${device === 'mobile' ? '📱' : '💻'} Device : ${device}\n`
-      for (let index = 0; index < runs; index++) {
+      for (const _runIdx of arrRuns) {
         const response = await callPageSpeed(url.trim(), device.trim(), core.getInput('api_key').trim())
         allResponse = allResponse.concat([], [response])
         stringComments += `
