@@ -131,6 +131,10 @@ https://docs.github.com/en/actions/reference/encrypted-secrets
 
 https://developers.google.com/speed/docs/insights/v5/get-started
 
+You might need to setup restriction for your API KEY in the [credential page](https://console.developers.google.com/apis/credentials)
+
+![setup restriction](key-restriction.png)
+
 ---
 
 Code by @mazipan from 2021

@@ -10,7 +10,7 @@ const LAST_UPDATE_FILE = `${REPORT_DIR}/LAST_UPDATED.txt`
 const REPORT_FILE = `${REPORT_DIR}/report-${TODAY}.json`
 const ALL_REPORT_FILE = `${REPORT_DIR}/available-reports.json`
 
-exports.pushBack = async function pushBack(data, token, branch) {
+exports.pushBack = async function pushBack(data, stringComments, token, branch) {
   const context = github.context
   const remote_repo = `https://${context.actor}:${token}@github.com/${context.repo.owner}/${context.repo.repo}.git`
 
@@ -34,4 +34,14 @@ exports.pushBack = async function pushBack(data, token, branch) {
 
   const cmd = `git push "${remote_repo}" HEAD:${branch} --follow-tags --force`
   await exec.exec(`${cmd}`)
+
+  const octokit = github.getOctokit(token)
+  octokit.repos.createCommitComment({
+    ...context.repo,
+    commit_sha: context.sha,
+    body: `
+**PSI Report by 🐯 "psi-github-action":**
+${stringComments}
+    `,
+  })
 }
