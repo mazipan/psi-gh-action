@@ -29,7 +29,7 @@ async function main() {
         allResponse = allResponse.concat([], [response])
         stringComments += `
  **⚡️ Performace Score**
- Performance: **${perf * 100}**
+ Performance: **${response.perf * 100}**
 
  **🚀 Core Web Vitals**
  First Input Delay        : **${response.fid}**
