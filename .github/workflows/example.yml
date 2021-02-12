@@ -21,6 +21,7 @@ jobs:
           api_key: ${{ secrets.PSI_API_KEY }}
           urls: |
             https://mazipan.space/
+            https://mazipan.space/cerita-anak-kampung-menjadi-programmer
           devices: |
             mobile
           runs: 1
