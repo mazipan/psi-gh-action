@@ -1,12 +1,12 @@
 const fetch = require('node-fetch')
 const core = require('@actions/core')
 const get = require('lodash/get')
+
 const { setPrecision } = require('./utils')
 
 exports.callPageSpeed = async function callPageSpeed (url, device = 'mobile', apiKey) {
   core.info(`👉 URL    : ${url}`)
   core.info(`👉 Device : ${device}`)
-  const URLObject = new URL(url)
 
   const API_URL = `https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url=${encodeURIComponent(
     url
@@ -19,8 +19,6 @@ exports.callPageSpeed = async function callPageSpeed (url, device = 'mobile', ap
       'Content-Type': 'application/json',
       // To duplicate all additional request from real browser
       Referer: url,
-      Origin: URLObject.origin,
-      Host: URLObject.host,
       'User-Agent':
         'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.16; rv:86.0) Gecko/20100101 Firefox/86.0'
     }
