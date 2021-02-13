@@ -37,6 +37,10 @@ exports.pushBack = async function pushBack(data, stringComments, token, branch) 
   await exec.exec(`git add ${ALL_REPORT_FILE}`)
   await exec.exec(`git commit -m "chore(psi-gh-action): report file"`)
 
+  const nextCommitHash = await exec.exec(`git rev-parse HEAD`)
+
+  info(`> Next commit hash: ${nextCommitHash}`)
+
   const cmd = `git push "${remote_repo}" HEAD:${branch} --follow-tags --force`
   await exec.exec(`${cmd}`)
 
