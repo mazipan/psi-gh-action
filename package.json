@@ -28,7 +28,7 @@
     "@actions/exec": "^1.0.4",
     "@actions/github": "^4.0.0",
     "@actions/io": "^1.0.2",
-    "chalk": "^4.1.0",
+    "ansi-colors": "^4.1.1",
     "lodash": "^4.17.20",
     "node-fetch": "^2.6.1"
   },

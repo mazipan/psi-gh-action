@@ -1,5 +1,5 @@
 const core = require('@actions/core')
-const chalk = require('chalk');
+const c = require('ansi-colors');
 
 /**
  * Console info
@@ -12,13 +12,13 @@ exports.info = function info(message) {
 }
 
 /**
- * Console info using green color
+ * Console success
  *
  * @param {string} message
  * @returns void
  */
 exports.success = function success(message) {
-  core.info(chalk.green(`${message}`))
+  core.info(c.greenBright(`${message}`))
 }
 
 /**
