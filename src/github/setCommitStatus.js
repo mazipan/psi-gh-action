@@ -1,5 +1,5 @@
 const github = require('@actions/github')
-const core = require('@actions/core')
+const { blue, red } = require('../logger')
 
 exports.setCommitStatus = async function setCommitStatus (token) {
   const context = github.context
@@ -8,7 +8,7 @@ exports.setCommitStatus = async function setCommitStatus (token) {
   const octokit = github.getOctokit(token)
 
   try {
-    core.info(`> Adding commit status on: ${context.sha}`)
+    blue(`> Adding commit status on: ${context.sha}`)
     await octokit.repos.createCommitStatus({
       owner: context.repo.owner,
       repo: context.repo.repo,
@@ -18,6 +18,6 @@ exports.setCommitStatus = async function setCommitStatus (token) {
       description: 'Success status by "psi-github-action"'
     })
   } catch (error) {
-    core.info(error)
+    red(error)
   }
 }

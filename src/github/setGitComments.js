@@ -1,9 +1,9 @@
 const github = require('@actions/github')
-const core = require('@actions/core')
 const { getListComments } = require('./getListComments')
 const { setCommitStatus } = require('./setCommitStatus')
 const { deleteComments } = require('./deleteComments')
 const { generateCommentString } = require('../utils')
+const { blue, red } = require('../logger')
 
 exports.setGitComments = async function setGitComments (data, token) {
   const context = github.context
@@ -13,7 +13,7 @@ exports.setGitComments = async function setGitComments (data, token) {
   await deleteComments(token, comments)
 
   try {
-    core.info(`> Creating new comment on commit: ${context.sha}`)
+    blue(`> Creating new comment on commit: ${context.sha}`)
 
     await octokit.repos.createCommitComment({
       owner: context.repo.owner,
@@ -25,7 +25,7 @@ exports.setGitComments = async function setGitComments (data, token) {
       `
     })
   } catch (error) {
-    core.info(error)
+    red(error)
   }
 
   // status for current commit

@@ -2,14 +2,14 @@ const core = require('@actions/core')
 const io = require('@actions/io')
 
 const { CONSTANT } = require('./constants')
+const { green, blue, yellow, newline } = require('./logger')
 const { getInputList, isHaveTodayReport, getTodayReportData } = require('./utils')
 const { callPageSpeed } = require('./callPageSpeed')
 const { pushGitChanges } = require('./github/pushGitChanges')
 const { setGitComments } = require('./github/setGitComments')
 
 async function main () {
-  core.info('\u001b[32m🐯 "psi-github-action" starting to collect report...\u001b[0m')
-  core.info('')
+  green('🐯 "psi-github-action" starting to collect report...')
 
   const urls = getInputList('urls')
   const devices = getInputList('devices') || 'mobile'
@@ -49,17 +49,23 @@ async function main () {
 
   const isReportExist = await isHaveTodayReport()
 
+  let isNeedToPushBack = false
   // will always run psi when override is set
   if (override && override === 'true') {
-    core.info('ℹ️  Start running PSI because "override" config is "true"')
+    blue('ℹ️  Start running PSI because "override" config is "true"')
+    newline()
+    isNeedToPushBack = true
     await runPSI()
   } else {
     // only run psi when report is NOT exist
     if (!isReportExist) {
-      core.info('ℹ️  Start running PSI because "override" config is "false" but the report can not be found')
+      blue('ℹ️  Start running PSI because "override" config is "false" but the report can not be found')
+      newline()
+      isNeedToPushBack = true
       await runPSI()
     } else {
-      core.warning('⚠️  Not running PSI because "override" config is "false" and report was generated before')
+      yellow('⚠️  Not running PSI because "override" config is "false" and report was generated before')
+      newline()
       const existingReport = await getTodayReportData()
       allResponse = existingReport.reports
     }
@@ -73,7 +79,10 @@ async function main () {
   const isPushBack = core.getInput('push_back')
   if (isPushBack && isPushBack === 'true') {
     const branch = core.getInput('branch')
-    await pushGitChanges(finalResponse, token, branch)
+    if (isNeedToPushBack) {
+      // only push when running PSI job
+      await pushGitChanges(finalResponse, token, branch)
+    }
     await setGitComments(finalResponse, token)
   }
 }
@@ -84,6 +93,6 @@ main()
     process.exit(1)
   })
   .then(() => {
-    core.info(`\u001b[32m✅  Completed in ${process.uptime()}s.\u001b[0m`)
+    green(`✅  Completed in ${process.uptime()}s.`)
     process.exit()
   })

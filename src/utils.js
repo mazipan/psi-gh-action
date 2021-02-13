@@ -1,7 +1,5 @@
 const core = require('@actions/core')
-const exec = require('@actions/exec')
 const fs = require('fs')
-const path = require('path')
 const { CONSTANT } = require('./constants')
 
 /**
@@ -50,11 +48,6 @@ function getAvailableReports () {
  *
  */
 async function isHaveTodayReport () {
-  exec.exec('ls').then(() => {})
-  exec.exec('ls psi-reports/').then(() => {})
-  core.info(`All constant: ${JSON.stringify(CONSTANT)}`)
-  core.info(`File constant: ${CONSTANT.REPORT_FILE}`)
-  core.info(`File constant w resolve: ${path.resolve(CONSTANT.REPORT_FILE)}`)
   if (fs.existsSync(CONSTANT.REPORT_FILE)) {
     return true
   }
@@ -81,11 +74,11 @@ async function getTodayReportData () {
 function generateCommentString (response) {
   let stringComments = ''
   response.reports.forEach(report => {
-    stringComments += `<h3>PSI Report for ${report.url}</h3>`
+    stringComments += `<h3>PSI Report for <a href="${report.url}" alt="${report.url}" target="_blank" rel="noopenner noreferer">${report.url}</a></h3>`
     stringComments += '<details>'
-    stringComments += `<summary><h4>${
-      report.device === 'mobile' ? '📱' : '💻'
-    } Device : ${report.device}</h4></summary>`
+    stringComments += `<summary><b>${
+      report.device === 'mobile' ? '📱  Mobile Device' : '💻  Desktop Device'
+    }</b></summary>`
     stringComments += `<p><b>⚡️ Performace Score</b></p>
     Performance              : <b>${report.perf * 100}</b></br>
     <p><b>🚀 Core Web Vitals</b></p>

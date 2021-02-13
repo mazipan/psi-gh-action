@@ -1,11 +1,11 @@
 const github = require('@actions/github')
-const core = require('@actions/core')
+const { blue, red } = require('../logger')
 
 exports.getListComments = async function getListComments (token) {
   const context = github.context
   const octokit = github.getOctokit(token)
   try {
-    core.info(`> Get list of comments on commit: ${context.sha}`)
+    blue(`> Get list of comments on commit: ${context.sha}`)
     const comments = await octokit.repos.listCommentsForCommit({
       owner: context.repo.owner,
       repo: context.repo.repo,
@@ -14,7 +14,7 @@ exports.getListComments = async function getListComments (token) {
     })
     return comments.data
   } catch (error) {
-    core.info(error)
+    red(error)
     return []
   }
 }

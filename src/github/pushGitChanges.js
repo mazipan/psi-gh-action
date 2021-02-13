@@ -1,12 +1,12 @@
 const github = require('@actions/github')
-const core = require('@actions/core')
 const exec = require('@actions/exec')
 const fs = require('fs')
 const { getAvailableReports } = require('../utils')
 const { CONSTANT } = require('../constants')
+const { blue } = require('../logger')
 
 exports.pushGitChanges = async function pushGitChanges (data, token, branch) {
-  core.info('> Trying to push_back to the repository...')
+  blue('> Trying to push_back to the repository...')
   const context = github.context
   const remoteRepo = `https://${context.actor}:${token}@github.com/${context.repo.owner}/${context.repo.repo}.git`
 

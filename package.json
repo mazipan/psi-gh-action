@@ -1,6 +1,6 @@
 {
   "name": "psi-gh-action",
-  "version": "1.3.2",
+  "version": "1.4.0",
   "description": "🐯 Github Action to generate web performance report using PageSpeedInsight",
   "main": "index.js",
   "scripts": {
