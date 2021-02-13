@@ -1,5 +1,4 @@
 const core = require('@actions/core')
-const c = require('ansi-colors');
 
 /**
  * Console info
@@ -18,7 +17,7 @@ exports.info = function info(message) {
  * @returns void
  */
 exports.success = function success(message) {
-  core.info(c.greenBright(`${message}`))
+  core.info((`[92m${message}![39m`))
 }
 
 /**
