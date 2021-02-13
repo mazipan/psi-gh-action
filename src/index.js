@@ -1,7 +1,7 @@
 const core = require('@actions/core')
 const io = require('@actions/io')
 
-const CONSTANT = require('./constants')
+const { CONSTANT } = require('./constants')
 const { getInputList, isHaveTodayReport, getTodayReportData } = require('./utils')
 const { callPageSpeed } = require('./callPageSpeed')
 const { pushGitChanges } = require('./github/pushGitChanges')

@@ -3,7 +3,7 @@ const core = require('@actions/core')
 const exec = require('@actions/exec')
 const fs = require('fs')
 const { getAvailableReports } = require('../utils')
-const CONSTANT = require('../constants')
+const { CONSTANT } = require('../constants')
 
 exports.pushGitChanges = async function pushGitChanges (data, token, branch) {
   core.info('> Trying to push_back to the repository...')

@@ -8,7 +8,7 @@ const LAST_UPDATE_FILE = `${REPORT_DIR}/LAST_UPDATED.txt`
 const REPORT_FILE = `${REPORT_DIR}/${TODAY_REPORT_FILE}`
 const ALL_REPORT_FILE = `${REPORT_DIR}/available-reports.json`
 
-module.exports = {
+exports.CONSTANT = {
   TODAY_DATE,
   TODAY,
   TODAY_REPORT_FILE,
