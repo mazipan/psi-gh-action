@@ -37,9 +37,7 @@ exports.pushBack = async function pushBack (data, stringComments, token, branch)
   await exec.exec('git config --local user.name "Github Actions"')
   await exec.exec(`git add ${LAST_UPDATE_FILE} ${REPORT_FILE} ${ALL_REPORT_FILE}`)
   await exec.exec('git commit -m "chore(psi-gh-action): generated report file"')
-
-  const cmd = `git push "${remoteRepo}" HEAD:${branch} --follow-tags --force`
-  await exec.exec(`${cmd}`)
+  await exec.exec(`git push "${remoteRepo}" HEAD:${branch} --follow-tags --force`)
 
   const octokit = github.getOctokit(token)
   try {
@@ -66,7 +64,7 @@ exports.pushBack = async function pushBack (data, stringComments, token, branch)
   })
 
   let nextCommitHash = ''
-  await exec.exec('git rev-parse HEAD', [], {
+  await exec.exec(`git rev-parse ${branch}`, [], {
     listeners: {
       stdout: (data) => {
         nextCommitHash += data.toString()

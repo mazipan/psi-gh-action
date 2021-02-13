@@ -5,7 +5,7 @@ const { callPageSpeed } = require('./callPageSpeed')
 const { pushBack } = require('./pushBack')
 
 async function main () {
-  core.info('🐯 "psi-github-action" starting to collect report...')
+  core.info('[92m🐯 "psi-github-action" starting to collect report...![39m')
   core.info('')
 
   const urls = getInputList('urls')
