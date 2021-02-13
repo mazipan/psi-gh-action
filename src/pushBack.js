@@ -42,6 +42,15 @@ exports.pushBack = async function pushBack (data, stringComments, token, branch)
   const octokit = github.getOctokit(token)
   try {
     core.info(`> Trying to create comment on commit: ${context.sha}`)
+    const comments = await octokit.repos.listCommentsForCommit({
+      owner: context.repo.owner,
+      repo: context.repo.repo,
+      commit_sha: context.sha,
+      page: 1
+    })
+
+    core.info(`> PAYLOAD COMMENTS: ${JSON.stringify(comments)}`)
+
     await octokit.repos.createCommitComment({
       owner: context.repo.owner,
       repo: context.repo.repo,
@@ -63,22 +72,22 @@ exports.pushBack = async function pushBack (data, stringComments, token, branch)
     url: actionUrl
   })
 
-  let nextCommitHash = ''
-  await exec.exec(`git rev-parse ${branch}`, [], {
-    listeners: {
-      stdout: (data) => {
-        nextCommitHash += data.toString()
-      }
-    }
-  })
+  // let nextCommitHash = ''
+  // await exec.exec(`git rev-parse ${branch}`, [], {
+  //   listeners: {
+  //     stdout: (data) => {
+  //       nextCommitHash += data.toString()
+  //     }
+  //   }
+  // })
 
-  core.info(`> Next commit hash: ${nextCommitHash}`)
+  // core.info(`> Next commit hash: ${nextCommitHash}`)
 
-  // status for next auto commit by this action
-  await createSuccessStatus({
-    context,
-    octokit,
-    hash: nextCommitHash,
-    url: actionUrl
-  })
+  // // status for next auto commit by this action
+  // await createSuccessStatus({
+  //   context,
+  //   octokit,
+  //   hash: nextCommitHash,
+  //   url: actionUrl
+  // })
 }
