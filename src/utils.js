@@ -1,6 +1,4 @@
 const core = require('@actions/core')
-const spawn = require('child_process').spawn
-const { info } = require('./logger')
 
 /**
  * Wrapper for core.getInput for a list input.
@@ -14,26 +12,6 @@ exports.getInputList = function getInputList(arg, separator = '\n') {
     .split(separator)
     .map((url) => url.trim())
     .filter(Boolean)
-}
-
-/**
- * Wrapper for core.getInput for a list input.
- *
- * @param {string} arg
- */
-exports.exec = function exec(cmd, args = []) {
-  return new Promise((resolve, reject) => {
-    const app = spawn(cmd, args, { stdio: 'inherit' })
-    app.on('close', (code) => {
-      if (code !== 0) {
-        err = new Error(`Invalid status code: ${code}`)
-        err.code = code
-        return reject(err)
-      }
-      return resolve(code)
-    })
-    app.on('error', reject)
-  })
 }
 
 /**
@@ -65,8 +43,6 @@ exports.setPrecision = function setPrecision(value, precision = 2) {
 
 exports.createSuccessStatus = async function createSuccessStatus({ octokit, context, url, hash, desc = 'Success status by "psi-github-action"' }) {
   try {
-    info(`> Trying to create commit status on: ${hash}`)
-
     await octokit.repos.createCommitStatus({
       owner: context.repo.owner,
       repo: context.repo.repo,
@@ -76,6 +52,6 @@ exports.createSuccessStatus = async function createSuccessStatus({ octokit, cont
       description: desc
     })
   } catch (error) {
-    info(error)
+    console.error(error)
   }
 }

@@ -17,7 +17,8 @@ exports.info = function info(message) {
  * @returns void
  */
 exports.success = function success(message) {
-  core.info((`[92m${message}![39m`))
+  core.info(`${message}`)
+  // core.info((`[92m${message}![39m`))
 }
 
 /**
