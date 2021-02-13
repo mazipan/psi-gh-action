@@ -2,7 +2,7 @@ const github = require('@actions/github')
 const exec = require('@actions/exec')
 const io = require('@actions/io')
 const fs = require('fs')
-const { formatDate } = require('./utils')
+const { formatDate, createSuccessStatus } = require('./utils')
 const { info } = require('./logger')
 
 const TODAY = formatDate(new Date())
@@ -14,6 +14,7 @@ const ALL_REPORT_FILE = `${REPORT_DIR}/available-reports.json`
 exports.pushBack = async function pushBack(data, stringComments, token, branch) {
   info(`> Trying to push_back to the repository...`)
   const context = github.context
+  const actionUrl = `https://github.com/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`
   const remote_repo = `https://${context.actor}:${token}@github.com/${context.repo.owner}/${context.repo.repo}.git`
 
   io.mkdirP(REPORT_DIR)
@@ -24,18 +25,18 @@ exports.pushBack = async function pushBack(data, stringComments, token, branch) 
     .readdirSync(REPORT_DIR)
     .filter((file) => file !== 'LAST_UPDATED.txt' && file !== 'available-reports.json')
     .reverse()
+
   const newAllReportContents = {
     latest: `report-${TODAY}.json`,
     all: files
   }
+
   await fs.promises.writeFile(ALL_REPORT_FILE, `${JSON.stringify(newAllReportContents, null, 2)}`)
 
   await exec.exec(`git config --local user.email "actions@github.com"`)
   await exec.exec(`git config --local user.name "Github Actions"`)
-  await exec.exec(`git add ${LAST_UPDATE_FILE}`)
-  await exec.exec(`git add ${REPORT_FILE}`)
-  await exec.exec(`git add ${ALL_REPORT_FILE}`)
-  await exec.exec(`git commit -m "chore(psi-gh-action): report file"`)
+  await exec.exec(`git add ${LAST_UPDATE_FILE} ${REPORT_FILE} ${ALL_REPORT_FILE}`)
+  await exec.exec(`git commit -m "chore(psi-gh-action): generated report file"`)
 
   let nextCommitHash = ''
   await exec.exec(`git rev-parse HEAD`, [], {
@@ -67,17 +68,19 @@ exports.pushBack = async function pushBack(data, stringComments, token, branch) 
     info(error)
   }
 
-  try {
-    info(`> Trying to create commit status on: ${context.sha}`)
+  // status for current commit
+  await createSuccessStatus({
+    context,
+    octokit,
+    hash: context.sha,
+    url: actionUrl,
+  })
 
-    await octokit.repos.createCommitStatus({
-      owner: context.repo.owner,
-      repo: context.repo.repo,
-      sha: context.sha,
-      state: 'success',
-      description: 'Success running "psi-github-action"'
-    })
-  } catch (error) {
-    info(error)
-  }
+  // status for next auto commit by this action
+  await createSuccessStatus({
+    context,
+    octokit,
+    hash: nextCommitHash,
+    url: actionUrl,
+  })
 }

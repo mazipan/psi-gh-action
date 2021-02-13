@@ -1,7 +1,7 @@
 const core = require('@actions/core')
 
 const { getInputList } = require('./src/utils')
-const { info } = require('./src/logger')
+const { info, success } = require('./src/logger')
 const { callPageSpeed } = require('./src/callPageSpeed')
 const { pushBack } = require('./src/pushBack')
 
@@ -27,33 +27,30 @@ async function main() {
   let allResponse = []
   let stringComments = '';
   for (const url of urls) {
-    stringComments += `## Report for ${url}\n`
+    stringComments += `### Report for ${url}\n`
     for (const device of devices) {
-      stringComments += `### ${device === 'mobile' ? '📱' : '💻'} Device : ${device}\n`
+      stringComments += `<details>`
+      stringComments += `<summary><b>${device === 'mobile' ? '📱' : '💻'} Device : ${device}</b></summary>`
       for (const _runIdx of arrRuns) {
         const response = await callPageSpeed(url.trim(), device.trim(), core.getInput('api_key').trim())
         allResponse = allResponse.concat([], [response])
-        stringComments += `
- **⚡️ Performace Score**
- Performance: **${response.perf * 100}**
-
- **🚀 Core Web Vitals**
- First Input Delay        : **${response.fid}**
- Largest Contentful Paint : **${response.lcp}**
- Cumulative Layout Shift  : **${response.cls}**
-
- **⏱ Other Timings**
- First Contentful Paint   : **${response.fcp}**
- First CPU Idle           : **${response.fci}**
- Total Blocking Time      : **${response.tbt}**
- Time to Interactive      : **${response.tti}**
- Speed Index              : **${response.si}**
-
- **📦 Resources**
- Total Resources Count    : **${response.req}**
- Total Resources Size     : **${response.size}**
-  `
+        stringComments += `<b>⚡️ Performace Score</b>
+ <p>Performance              : <b>${response.perf * 100}</b></p>
+ <b>🚀 Core Web Vitals</b>
+ <p>First Input Delay        : <b>${response.fid}ms</b></p>
+ <p>Largest Contentful Paint : <b>${response.lcp}ms</b></p>
+ <p>Cumulative Layout Shift  : <b>${response.cls}</b></p>
+ <b>⏱ Other Timings</b>
+ <p>First Contentful Paint   : <b>${response.fcp}ms</b></p>
+ <p>First CPU Idle           : <b>${response.fci}ms</b></p>
+ <p>Total Blocking Time      : <b>${response.tbt}ms</b></p>
+ <p>Time to Interactive      : <b>${response.tti}ms</b></p>
+ <p>Speed Index              : <b>${response.si}ms</b></p>
+ <b>📦 Resources</b>
+ <p>Total Resources Count    : <b>${response.req}</b></p>
+ <p>Total Resources Size     : <b>${response.size}</b></p>`
       }
+      stringComments += `</details>`
     }
   }
 
@@ -75,6 +72,6 @@ main()
     process.exit(1)
   })
   .then(() => {
-    info(`✅ Completed in ${process.uptime()}s.`)
+    success(`✅ Completed in ${process.uptime()}s.`)
     process.exit()
   })

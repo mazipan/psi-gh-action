@@ -4,7 +4,7 @@ Github Action to generate web performance report using PageSpeedInsight
 
 ![Release](https://img.shields.io/github/v/release/mazipan/psi-gh-action?logo=version&style=plastic) ![.github/workflows/example.yml](https://github.com/mazipan/psi-gh-action/workflows/.github/workflows/example.yml/badge.svg?branch=master)
 
-![Screenshoot](./screenshoot.jpg)
+![Screenshot](screenshots/action-log.png)
 
 ## Motivations
 
@@ -137,7 +137,7 @@ https://developers.google.com/speed/docs/insights/v5/get-started
 
 You might need to set a restriction to `None` for your API KEY in the [credential page](https://console.developers.google.com/apis/credentials)
 
-![setup restriction](key-restriction.png)
+![setup restriction](screenshots/key-restriction.png)
 
 ---
 

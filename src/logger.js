@@ -1,4 +1,5 @@
 const core = require('@actions/core')
+const chalk = require('chalk');
 
 /**
  * Console info
@@ -8,6 +9,16 @@ const core = require('@actions/core')
  */
 exports.info = function info(message) {
   core.info(`${message}`)
+}
+
+/**
+ * Console info using green color
+ *
+ * @param {string} message
+ * @returns void
+ */
+exports.success = function success(message) {
+  core.info(chalk.green(`${message}`))
 }
 
 /**

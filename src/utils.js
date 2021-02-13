@@ -1,5 +1,6 @@
 const core = require('@actions/core')
 const spawn = require('child_process').spawn
+const { info } = require('./logger')
 
 /**
  * Wrapper for core.getInput for a list input.
@@ -35,6 +36,11 @@ exports.exec = function exec(cmd, args = []) {
   })
 }
 
+/**
+ * Format date to YYYY-MM-DD
+ *
+ * @param {Date} date
+ */
 exports.formatDate = function formatDate(date) {
   let d = new Date(date),
     month = '' + (d.getMonth() + 1),
@@ -45,4 +51,31 @@ exports.formatDate = function formatDate(date) {
   if (day.length < 2) day = '0' + day
 
   return [year, month, day].join('-')
+}
+
+
+/**
+ * Format date to YYYY-MM-DD
+ *
+ * @param {Date} date
+ */
+exports.setPrecision = function setPrecision(value, precision = 2) {
+  return parseFloat(value.toFixed(precision))
+}
+
+exports.createSuccessStatus = async function createSuccessStatus({ octokit, context, url, hash, desc = 'Success status by "psi-github-action"' }) {
+  try {
+    info(`> Trying to create commit status on: ${hash}`)
+
+    await octokit.repos.createCommitStatus({
+      owner: context.repo.owner,
+      repo: context.repo.repo,
+      target_url: url,
+      sha: hash,
+      state: 'success',
+      description: desc
+    })
+  } catch (error) {
+    info(error)
+  }
 }
