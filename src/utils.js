@@ -1,6 +1,7 @@
 const core = require('@actions/core')
 const exec = require('@actions/exec')
 const fs = require('fs')
+const path = require('path')
 const CONSTANT = require('./constants')
 
 /**
@@ -65,11 +66,12 @@ function getAvailableReports () {
  * Check is report already generated
  *
  */
-function isHaveTodayReport () {
+async function isHaveTodayReport () {
   exec.exec('ls').then(() => {})
-  core.info('==============================')
   exec.exec('ls psi-reports/').then(() => {})
-  core.info(`File ${CONSTANT.REPORT_FILE}`)
+  core.info(`All constant: ${JSON.stringify(CONSTANT)}`)
+  core.info(`File constant: ${CONSTANT.REPORT_FILE}`)
+  core.info(`File constant w resolve: ${path.resolve(CONSTANT.REPORT_FILE)}`)
   if (fs.existsSync(CONSTANT.REPORT_FILE)) {
     return true
   }
@@ -80,8 +82,8 @@ function isHaveTodayReport () {
  * Get the data from today report
  *
  */
-function getTodayReportData () {
-  if (isHaveTodayReport()) {
+async function getTodayReportData () {
+  if (await isHaveTodayReport()) {
     const content = fs.readFileSync(CONSTANT.REPORT_FILE, { encoding: 'utf8' })
     return JSON.parse(content)
   }

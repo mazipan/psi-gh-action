@@ -47,7 +47,7 @@ async function main () {
     }
   }
 
-  const isReportExist = isHaveTodayReport()
+  const isReportExist = await isHaveTodayReport()
 
   // will always run psi when override is set
   if (override && override === 'true') {
@@ -60,7 +60,7 @@ async function main () {
       await runPSI()
     } else {
       core.warning('⚠️  Not running PSI because "override" config is "false" and report was generated before')
-      const existingReport = getTodayReportData()
+      const existingReport = await getTodayReportData()
       allResponse = existingReport.reports
     }
   }
