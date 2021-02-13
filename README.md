@@ -12,15 +12,16 @@ I want to create an open web performance report for my personal blog, I want my 
 
 ## Inputs
 
-| Input       | Description                         | Required                  | Default |
-| ----------- | ----------------------------------- | ------------------------- | ------- |
-| `api_key`   | PageSpeedInsight API key            | yes                       |         |
-| `urls`      | List of URL(s) to be analyzed       | yes                       |         |
-| `devices`   | Device(s) used for test             | no                        | mobile  |
-| `runs`      | Number of runs to do per URL        | no                        | 1       |
-| `push_back` | Push JSON report to the main branch | no                        | false   |
-| `token`     | Github token                        | yes (if `push_back` true) |         |
-| `branch`    | Main branch to store report files   | no                        | master  |
+| Input       | Description                                     | Required                  | Default |
+| ----------- | ----------------------------------------------- | ------------------------- | ------- |
+| `api_key`   | PageSpeedInsight API key                        | yes                       |         |
+| `urls`      | List of URL(s) to be analyzed                   | yes                       |         |
+| `devices`   | Device(s) used for test                         | no                        | mobile  |
+| `runs`      | Number of runs to do per URL                    | no                        | 1       |
+| `push_back` | Push JSON report to the main branch             | no                        | false   |
+| `override`  | Will always make a request to PSI for every job | no                        | false   |
+| `token`     | Github token                                    | yes (if `push_back` true) |         |
+| `branch`    | Main branch to store report files               | no                        | master  |
 
 ## Example usage
 
@@ -117,6 +118,7 @@ This Github Actions will generate these following files:
   ]
 }
 ```
+
 ## Example UI for Next.js project
 
 - See commit [c865772](https://github.com/mazipan/mazipan.space/commit/c86577204951760750b56f9c30660d0189cdad07) for implementation detail. See [mazipan.space/speed](https://mazipan.space/speed) for the UI result
