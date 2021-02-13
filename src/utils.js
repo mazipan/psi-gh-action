@@ -1,4 +1,5 @@
 const core = require('@actions/core')
+const exec = require('@actions/exec')
 const fs = require('fs')
 const CONSTANT = require('./constants')
 
@@ -65,6 +66,10 @@ function getAvailableReports () {
  *
  */
 function isHaveTodayReport () {
+  exec.exec('ls').then(() => {})
+  core.info('==============================')
+  exec.exec('ls psi-reports/').then(() => {})
+  core.info(`File ${CONSTANT.REPORT_FILE}`)
   if (fs.existsSync(CONSTANT.REPORT_FILE)) {
     return true
   }
