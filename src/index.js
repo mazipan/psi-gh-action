@@ -84,6 +84,6 @@ main()
     process.exit(1)
   })
   .then(() => {
-    core.info(`✅  Completed in ${process.uptime()}s.`)
+    core.info(`\u001b[32m✅  Completed in ${process.uptime()}s.\u001b[0m`)
     process.exit()
   })

@@ -61,26 +61,27 @@ function getAvailableReports () {
 }
 
 /**
+ * Check is report already generated
+ *
+ */
+function isHaveTodayReport () {
+  if (fs.existsSync(CONSTANT.REPORT_FILE)) {
+    return true
+  }
+  return false
+}
+
+/**
  * Get the data from today report
  *
  */
 function getTodayReportData () {
-  if (fs.existsSync(CONSTANT.REPORT_FILE)) {
+  if (isHaveTodayReport()) {
     const content = fs.readFileSync(CONSTANT.REPORT_FILE, { encoding: 'utf8' })
     return JSON.parse(content)
   }
 
   return null
-}
-
-/**
- * Check is report already generated
- *
- */
-function isHaveTodayReport () {
-  const files = getAvailableReports()
-  const isExist = files.find(f => f.includes(CONSTANT.TODAY))
-  return Boolean(isExist)
 }
 
 /**
@@ -115,27 +116,6 @@ function generateCommentString (response) {
   return stringComments
 }
 
-async function createSuccessStatus ({
-  octokit,
-  context,
-  url,
-  hash,
-  desc = 'Success status by "psi-github-action"'
-}) {
-  try {
-    await octokit.repos.createCommitStatus({
-      owner: context.repo.owner,
-      repo: context.repo.repo,
-      target_url: url,
-      sha: hash,
-      state: 'success',
-      description: desc
-    })
-  } catch (error) {
-    console.error(error)
-  }
-}
-
 exports.getInputList = getInputList
 exports.formatDate = formatDate
 exports.setPrecision = setPrecision
@@ -143,4 +123,3 @@ exports.getAvailableReports = getAvailableReports
 exports.getTodayReportData = getTodayReportData
 exports.isHaveTodayReport = isHaveTodayReport
 exports.generateCommentString = generateCommentString
-exports.createSuccessStatus = createSuccessStatus

@@ -1,22 +1,18 @@
 const github = require('@actions/github')
 const core = require('@actions/core')
-const { generateCommentString, createSuccessStatus } = require('../utils')
+const { getListComments } = require('./getListComments')
+const { setCommitStatus } = require('./setCommitStatus')
+const { generateCommentString } = require('../utils')
 
 exports.setGitComments = async function setGitComments (data, token) {
   const context = github.context
-  const actionUrl = `https://github.com/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`
-
   const octokit = github.getOctokit(token)
-  try {
-    core.info(`> Trying to create comment on commit: ${context.sha}`)
-    const comments = await octokit.repos.listCommentsForCommit({
-      owner: context.repo.owner,
-      repo: context.repo.repo,
-      commit_sha: context.sha,
-      page: 1
-    })
 
-    core.info(`> PAYLOAD COMMENTS: ${JSON.stringify(comments)}`)
+  const comments = await getListComments(token)
+  core.info(`> PAYLOAD COMMENTS: ${JSON.stringify(comments)}`)
+
+  try {
+    core.info(`> Creating comment on commit: ${context.sha}`)
 
     await octokit.repos.createCommitComment({
       owner: context.repo.owner,
@@ -32,10 +28,5 @@ exports.setGitComments = async function setGitComments (data, token) {
   }
 
   // status for current commit
-  await createSuccessStatus({
-    context,
-    octokit,
-    hash: context.sha,
-    url: actionUrl
-  })
+  await setCommitStatus(token)
 }
