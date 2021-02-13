@@ -1,50 +1,50 @@
 {
-  "timestamp": "2021-02-13T09:49:07.345Z",
+  "timestamp": "2021-02-13T09:51:53.564Z",
   "reports": [
     {
       "url": "https://mazipan.space/",
       "device": "mobile",
-      "perf": 0.8,
+      "perf": 0.83,
       "fid": 16,
-      "lcp": 2055,
+      "lcp": 2430,
       "cls": 0,
-      "fcp": 1905,
+      "fcp": 2265,
       "fci": 4173,
-      "tbt": 652,
-      "tti": 5733,
-      "si": 2426.483859988451,
+      "tbt": 457,
+      "tti": 6008.5,
+      "si": 2265,
       "req": 45,
-      "size": 408604
+      "size": 408638
     },
     {
       "url": "https://mazipan.space/",
       "device": "desktop",
-      "perf": 0.98,
+      "perf": 0.79,
       "fid": 8,
-      "lcp": 903,
+      "lcp": 912.5,
       "cls": 0,
-      "fcp": 758,
-      "fci": 1060,
-      "tbt": 78,
-      "tti": 1770,
-      "si": 758,
+      "fcp": 685,
+      "fci": 1540,
+      "tbt": 546.5,
+      "tti": 2186,
+      "si": 685,
       "req": 46,
-      "size": 415758
+      "size": 415813
     },
     {
       "url": "https://mazipan.space/cerita-anak-kampung-menjadi-programmer",
       "device": "mobile",
-      "perf": 0.81,
+      "perf": 0.72,
       "fid": 16,
-      "lcp": 2400,
+      "lcp": 2715,
       "cls": 0,
       "fcp": 1995,
-      "fci": 3667,
-      "tbt": 633,
-      "tti": 4327.5,
+      "fci": 4060,
+      "tbt": 1034,
+      "tti": 4770,
       "si": 1995,
       "req": 43,
-      "size": 316010
+      "size": 316038
     },
     {
       "url": "https://mazipan.space/cerita-anak-kampung-menjadi-programmer",
@@ -54,12 +54,12 @@
       "lcp": 935,
       "cls": 0,
       "fcp": 790,
-      "fci": 867,
-      "tbt": 118.5,
-      "tti": 938.5,
+      "fci": 882,
+      "tbt": 106,
+      "tti": 946,
       "si": 790,
       "req": 44,
-      "size": 366134
+      "size": 366164
     }
   ]
 }
