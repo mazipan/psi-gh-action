@@ -2,7 +2,7 @@ const core = require('@actions/core')
 const exec = require('@actions/exec')
 const fs = require('fs')
 const path = require('path')
-const CONSTANT = require('./constants')
+const { CONSTANT } = require('./constants')
 
 /**
  * Wrapper for core.getInput for a list input.
