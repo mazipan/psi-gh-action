@@ -1,20 +1,20 @@
 {
-  "timestamp": "2021-02-13T16:32:26.428Z",
+  "timestamp": "2021-02-13T16:36:26.246Z",
   "reports": [
     {
       "url": "https://mazipan.space/",
       "device": "mobile",
-      "perf": 0.83,
+      "perf": 0.84,
       "fid": 16,
       "lcp": 2205,
       "cls": 0,
       "fcp": 1905,
-      "fci": 4125,
-      "tbt": 521.5,
-      "tti": 5940,
+      "fci": 4017,
+      "tbt": 492.5,
+      "tti": 5832,
       "si": 1905,
       "req": 45,
-      "size": 408634
+      "size": 408666
     },
     {
       "url": "https://mazipan.space/",
@@ -23,43 +23,43 @@
       "fid": 8,
       "lcp": 845,
       "cls": 0,
-      "fcp": 692.5,
-      "fci": 1039,
-      "tbt": 54.5,
-      "tti": 1749,
-      "si": 692.5,
+      "fcp": 695,
+      "fci": 1040,
+      "tbt": 55,
+      "tti": 1750,
+      "si": 695,
       "req": 46,
-      "size": 415806
+      "size": 415838
     },
     {
       "url": "https://mazipan.space/cerita-anak-kampung-menjadi-programmer",
       "device": "mobile",
-      "perf": 0.72,
+      "perf": 0.83,
       "fid": 16,
-      "lcp": 2865,
+      "lcp": 2400,
       "cls": 0,
-      "fcp": 2295,
-      "fci": 3658,
-      "tbt": 1004,
-      "tti": 3699,
-      "si": 2295,
+      "fcp": 1995,
+      "fci": 3671,
+      "tbt": 562,
+      "tti": 4472.5,
+      "si": 1995,
       "req": 43,
-      "size": 316033
+      "size": 316058
     },
     {
       "url": "https://mazipan.space/cerita-anak-kampung-menjadi-programmer",
       "device": "desktop",
       "perf": 0.98,
       "fid": 8,
-      "lcp": 935,
+      "lcp": 955,
       "cls": 0,
-      "fcp": 782,
-      "fci": 897,
-      "tbt": 78.5,
-      "tti": 1157,
-      "si": 782,
+      "fcp": 790,
+      "fci": 792,
+      "tbt": 56,
+      "tti": 901,
+      "si": 790,
       "req": 44,
-      "size": 366157
+      "size": 366192
     }
   ]
 }
