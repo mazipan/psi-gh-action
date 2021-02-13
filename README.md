@@ -121,6 +121,10 @@ This Github Actions will generate these following files:
 
 - See commit [c865772](https://github.com/mazipan/mazipan.space/commit/c86577204951760750b56f9c30660d0189cdad07) for implementation detail. See [mazipan.space/speed](https://mazipan.space/speed) for the UI result
 
+## Awesome users
+
+See the complete list on [AWESOME-USERS.md](AWESOME-USERS.md)
+
 ## Additional Resources
 
 ### How to add new secret in Github Actions
@@ -137,4 +141,4 @@ You might need to setup restriction for your API KEY in the [credential page](ht
 
 ---
 
-Code by @mazipan from 2021
+Code by [@mazipan](https://mazipan.space/) from 2021
