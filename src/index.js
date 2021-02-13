@@ -1,8 +1,11 @@
 const core = require('@actions/core')
+const io = require('@actions/io')
 
-const { getInputList } = require('./utils')
+const CONSTANT = require('./constants')
+const { getInputList, isHaveTodayReport, getTodayReportData } = require('./utils')
 const { callPageSpeed } = require('./callPageSpeed')
-const { pushBack } = require('./pushBack')
+const { pushGitChanges } = require('./github/pushGitChanges')
+const { setGitComments } = require('./github/setGitComments')
 
 async function main () {
   core.info('\u001b[32m🐯 "psi-github-action" starting to collect report...\u001b[0m')
@@ -12,11 +15,14 @@ async function main () {
   const devices = getInputList('devices') || 'mobile'
   const runs = core.getInput('runs') || 1
   const token = core.getInput('token')
+  const override = core.getInput('override')
 
   if (!token) {
     core.setFailed('"token" is required, please add your PSI API KEY')
   }
 
+  // prepare report folder
+  io.mkdirP(CONSTANT.REPORT_DIR)
   // collect as array, so we can use for of
   const arrRuns = []
   for (let index = 0; index < runs; index++) {
@@ -24,39 +30,38 @@ async function main () {
   }
 
   let allResponse = []
-  let stringComments = ''
-  for (const url of urls) {
-    stringComments += `<h3>PSI Report for ${url}</h3>`
-    for (const device of devices) {
-      stringComments += '<details>'
-      stringComments += `<summary><h4>${
-        device === 'mobile' ? '📱' : '💻'
-      } Device : ${device}</h4></summary>`
-      // eslint-disable-next-line no-unused-vars
-      for (const _runIdx of arrRuns) {
-        const response = await callPageSpeed(
-          url.trim(),
-          device.trim(),
-          core.getInput('api_key').trim()
-        )
-        allResponse = allResponse.concat([], [response])
-        stringComments += `<p><b>⚡️ Performace Score</b></p>
- Performance              : <b>${response.perf * 100}</b></br>
- <p><b>🚀 Core Web Vitals</b></p>
- First Input Delay        : <b>${response.fid}ms</b></br>
- Largest Contentful Paint : <b>${response.lcp}ms</b></br>
- Cumulative Layout Shift  : <b>${response.cls}</b></br>
- <p><b>⏱ Other Timings</b></p>
- First Contentful Paint   : <b>${response.fcp}ms</b></br>
- First CPU Idle           : <b>${response.fci}ms</b></br>
- Total Blocking Time      : <b>${response.tbt}ms</b></br>
- Time to Interactive      : <b>${response.tti}ms</b></br>
- Speed Index              : <b>${response.si}ms</b></br>
- <p><b>📦 Resources</b></p>
- Total Resources Count    : <b>${response.req}</b></br>
- Total Resources Size     : <b>${response.size}</b></br>`
+
+  const runPSI = async () => {
+    for (const url of urls) {
+      for (const device of devices) {
+        // eslint-disable-next-line no-unused-vars
+        for (const _runIdx of arrRuns) {
+          const response = await callPageSpeed(
+            url.trim(),
+            device.trim(),
+            core.getInput('api_key').trim()
+          )
+          allResponse = allResponse.concat([], [response])
+        }
       }
-      stringComments += '</details>'
+    }
+  }
+
+  const isReportExist = isHaveTodayReport()
+
+  // will always run psi when override is set
+  if (override) {
+    core.info('ℹ️  Start running PSI because "override" config is "true"')
+    await runPSI()
+  } else {
+    // only run psi when report is NOT exist
+    if (!isReportExist) {
+      core.info('ℹ️  Start running PSI because "override" config is "false" but the report can not be found')
+      await runPSI()
+    } else {
+      core.warning('⚠️  Not running PSI because "override" config is "false" and report was generated before')
+      const existingReport = getTodayReportData()
+      allResponse = existingReport.reports
     }
   }
 
@@ -68,7 +73,8 @@ async function main () {
   const isPushBack = core.getInput('push_back')
   if (isPushBack) {
     const branch = core.getInput('branch')
-    await pushBack(finalResponse, stringComments, token, branch)
+    await pushGitChanges(finalResponse, token, branch)
+    await setGitComments(finalResponse, token)
   }
 }
 
@@ -78,6 +84,6 @@ main()
     process.exit(1)
   })
   .then(() => {
-    core.info(`✅ Completed in ${process.uptime()}s.`)
+    core.info(`✅  Completed in ${process.uptime()}s.`)
     process.exit()
   })

@@ -15,6 +15,9 @@ inputs:
   branch:
     description: "Target branch to save report file"
     default: master
+  override:
+    description: "Will always override same report for same date"
+    default: true
   push_back:
     description: "Push back the report file to the repository"
     default: false

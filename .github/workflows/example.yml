@@ -28,4 +28,5 @@ jobs:
           runs: 1
           branch: master
           push_back: true
+          override: false
           token: ${{ secrets.GITHUB_TOKEN }}
