@@ -25,7 +25,7 @@ async function main () {
   io.mkdirP(CONSTANT.REPORT_DIR)
   // collect as array, so we can use for of
   const arrRuns = []
-  for (let index = 0; index < runs; index++) {
+  for (let index = 0; index < parseInt(runs, 10); index++) {
     arrRuns.push(index)
   }
 
@@ -50,7 +50,7 @@ async function main () {
   const isReportExist = isHaveTodayReport()
 
   // will always run psi when override is set
-  if (override) {
+  if (override && override === 'true') {
     core.info('ℹ️  Start running PSI because "override" config is "true"')
     await runPSI()
   } else {
@@ -71,7 +71,7 @@ async function main () {
   }
 
   const isPushBack = core.getInput('push_back')
-  if (isPushBack) {
+  if (isPushBack && isPushBack === 'true') {
     const branch = core.getInput('branch')
     await pushGitChanges(finalResponse, token, branch)
     await setGitComments(finalResponse, token)
