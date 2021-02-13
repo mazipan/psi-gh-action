@@ -37,7 +37,14 @@ exports.pushBack = async function pushBack(data, stringComments, token, branch) 
   await exec.exec(`git add ${ALL_REPORT_FILE}`)
   await exec.exec(`git commit -m "chore(psi-gh-action): report file"`)
 
-  const nextCommitHash = await exec.exec(`git rev-parse HEAD`)
+  let nextCommitHash = ''
+  await exec.exec(`git rev-parse HEAD`, [], {
+    listeners: {
+      stdout: (data) => {
+        nextCommitHash += data.toString();
+      },
+    }
+  })
 
   info(`> Next commit hash: ${nextCommitHash}`)
 
