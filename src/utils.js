@@ -1,6 +1,7 @@
 const core = require('@actions/core')
 const fs = require('fs')
 const { CONSTANT } = require('./constants')
+const { magenta, newline } = require('./logger')
 
 /**
  * Wrapper for core.getInput for a list input.
@@ -73,7 +74,7 @@ async function getTodayReportData () {
  */
 function generateCommentString (response) {
   let stringComments = ''
-  response.reports.forEach(report => {
+  response.reports.forEach((report) => {
     stringComments += `<h3>PSI Report for <a href="${report.url}" alt="${report.url}" target="_blank" rel="noopenner noreferer">${report.url}</a></h3>`
     stringComments += '<details>'
     stringComments += `<summary><b>${
@@ -99,9 +100,46 @@ function generateCommentString (response) {
   return stringComments
 }
 
+/**
+ * Check is report already generated
+ *
+ */
+function logDataToConsole (response) {
+  response.reports.forEach((report) => {
+    magenta(`👉 URL    : ${report.url}`)
+    magenta(`👉 Device : ${report.device}`)
+
+    core.startGroup('⚡️ Performace Score')
+    core.info(`Performance: ${report.perf * 100}`)
+    core.endGroup()
+
+    core.startGroup('🚀 Core Web Vitals')
+    core.info(`First Input Delay        : ${report.fid}ms`)
+    core.info(`Largest Contentful Paint : ${report.lcp}ms`)
+    core.info(`Cumulative Layout Shift  : ${report.cls}`)
+    core.endGroup()
+
+    core.startGroup('⏱ Other Timings')
+    core.info(`First Contentful Paint   : ${report.fcp}ms`)
+    core.info(`First CPU Idle           : ${report.fci}ms`)
+    core.info(`Total Blocking Time      : ${report.tbt}ms`)
+    core.info(`Time to Interactive      : ${report.tti}ms`)
+    core.info(`Speed Index              : ${report.si}ms`)
+    core.endGroup()
+
+    core.startGroup('📦 Resources')
+    core.info(`Total Resources Count    : ${report.req}`)
+    core.info(`Total Resources Size     : ${report.size}`)
+    core.endGroup()
+
+    newline()
+  })
+}
+
 exports.getInputList = getInputList
 exports.setPrecision = setPrecision
 exports.getAvailableReports = getAvailableReports
 exports.getTodayReportData = getTodayReportData
 exports.isHaveTodayReport = isHaveTodayReport
 exports.generateCommentString = generateCommentString
+exports.logDataToConsole = logDataToConsole

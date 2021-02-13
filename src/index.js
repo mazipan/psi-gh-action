@@ -3,7 +3,7 @@ const io = require('@actions/io')
 
 const { CONSTANT } = require('./constants')
 const { green, blue, yellow, newline } = require('./logger')
-const { getInputList, isHaveTodayReport, getTodayReportData } = require('./utils')
+const { getInputList, isHaveTodayReport, getTodayReportData, logDataToConsole } = require('./utils')
 const { callPageSpeed } = require('./callPageSpeed')
 const { pushGitChanges } = require('./github/pushGitChanges')
 const { setGitComments } = require('./github/setGitComments')
@@ -75,6 +75,8 @@ async function main () {
     timestamp: new Date(),
     reports: allResponse
   }
+
+  logDataToConsole(finalResponse)
 
   const isPushBack = core.getInput('push_back')
   if (isPushBack && isPushBack === 'true') {

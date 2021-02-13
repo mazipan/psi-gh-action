@@ -16,6 +16,10 @@ function blue (message) {
   core.info(`\u001b[36m${message}\u001b[0m`)
 }
 
+function magenta (message) {
+  core.info(`\u001b[35m${message}\u001b[0m`)
+}
+
 function newline () {
   core.info('')
 }
@@ -24,4 +28,5 @@ exports.green = green
 exports.yellow = yellow
 exports.red = red
 exports.blue = blue
+exports.magenta = magenta
 exports.newline = newline

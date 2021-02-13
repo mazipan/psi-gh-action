@@ -1,12 +1,11 @@
 const fetch = require('node-fetch')
-const core = require('@actions/core')
 const get = require('lodash/get')
 
 const { setPrecision } = require('./utils')
+const { yellow } = require('./logger')
 
 exports.callPageSpeed = async function callPageSpeed (url, device = 'mobile', apiKey) {
-  core.info(`👉 URL    : ${url}`)
-  core.info(`👉 Device : ${device}`)
+  yellow(`> Request to PSI for ${url} ${device}`)
 
   const API_URL = `https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url=${encodeURIComponent(
     url
@@ -71,29 +70,5 @@ exports.callPageSpeed = async function callPageSpeed (url, device = 'mobile', ap
     size
   }
 
-  core.startGroup('⚡️ Performace Score')
-  core.info(`Performance: ${perf * 100}`)
-  core.endGroup()
-
-  core.startGroup('🚀 Core Web Vitals')
-  core.info(`First Input Delay        : ${fid}ms`)
-  core.info(`Largest Contentful Paint : ${lcp}ms`)
-  core.info(`Cumulative Layout Shift  : ${cls}`)
-  core.endGroup()
-
-  core.startGroup('⏱ Other Timings')
-  core.info(`First Contentful Paint   : ${fcp}ms`)
-  core.info(`First CPU Idle           : ${fci}ms`)
-  core.info(`Total Blocking Time      : ${tbt}ms`)
-  core.info(`Time to Interactive      : ${tti}ms`)
-  core.info(`Speed Index              : ${si}ms`)
-  core.endGroup()
-
-  core.startGroup('📦 Resources')
-  core.info(`Total Resources Count    : ${req}`)
-  core.info(`Total Resources Size     : ${size}`)
-  core.endGroup()
-
-  core.info('')
   return response
 }
