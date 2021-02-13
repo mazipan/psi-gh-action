@@ -1,18 +1,18 @@
 const fetch = require('node-fetch')
+const core = require('@actions/core')
 const get = require('lodash/get')
-const { info, startGroup, endGroup } = require('./logger')
-const { setPrecision } = require('./util')
+const { setPrecision } = require('./utils')
 
-exports.callPageSpeed = async function callPageSpeed(url, device = 'mobile', apiKey) {
-  info(`👉 URL    : ${url}`)
-  info(`👉 Device : ${device}`)
-  const URLObject = new URL(url);
+exports.callPageSpeed = async function callPageSpeed (url, device = 'mobile', apiKey) {
+  core.info(`👉 URL    : ${url}`)
+  core.info(`👉 Device : ${device}`)
+  const URLObject = new URL(url)
 
-  const URL = `https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url=${encodeURIComponent(
+  const API_URL = `https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url=${encodeURIComponent(
     url
   )}&key=${apiKey}&strategy=${device}&datetime=${new Date().getTime()}`
 
-  const resp = await fetch(URL, {
+  const resp = await fetch(API_URL, {
     method: 'GET',
     headers: {
       Accept: 'application/json',
@@ -73,29 +73,29 @@ exports.callPageSpeed = async function callPageSpeed(url, device = 'mobile', api
     size
   }
 
-  startGroup(`⚡️ Performace Score`)
-  info(`Performance: ${perf * 100}`)
-  endGroup()
+  core.startGroup('⚡️ Performace Score')
+  core.info(`Performance: ${perf * 100}`)
+  core.endGroup()
 
-  startGroup(`🚀 Core Web Vitals`)
-  info(`First Input Delay        : ${fid}ms`)
-  info(`Largest Contentful Paint : ${lcp}ms`)
-  info(`Cumulative Layout Shift  : ${cls}`)
-  endGroup()
+  core.startGroup('🚀 Core Web Vitals')
+  core.info(`First Input Delay        : ${fid}ms`)
+  core.info(`Largest Contentful Paint : ${lcp}ms`)
+  core.info(`Cumulative Layout Shift  : ${cls}`)
+  core.endGroup()
 
-  startGroup(`⏱ Other Timings`)
-  info(`First Contentful Paint   : ${fcp}ms`)
-  info(`First CPU Idle           : ${fci}ms`)
-  info(`Total Blocking Time      : ${tbt}ms`)
-  info(`Time to Interactive      : ${tti}ms`)
-  info(`Speed Index              : ${si}ms`)
-  endGroup()
+  core.startGroup('⏱ Other Timings')
+  core.info(`First Contentful Paint   : ${fcp}ms`)
+  core.info(`First CPU Idle           : ${fci}ms`)
+  core.info(`Total Blocking Time      : ${tbt}ms`)
+  core.info(`Time to Interactive      : ${tti}ms`)
+  core.info(`Speed Index              : ${si}ms`)
+  core.endGroup()
 
-  startGroup(`📦 Resources`)
-  info(`Total Resources Count    : ${req}`)
-  info(`Total Resources Size     : ${size}`)
-  endGroup()
+  core.startGroup('📦 Resources')
+  core.info(`Total Resources Count    : ${req}`)
+  core.info(`Total Resources Size     : ${size}`)
+  core.endGroup()
 
-  info('')
+  core.info('')
   return response
 }

@@ -1,13 +1,12 @@
 const core = require('@actions/core')
 
-const { getInputList } = require('./src/utils')
-const { info, success } = require('./src/logger')
-const { callPageSpeed } = require('./src/callPageSpeed')
-const { pushBack } = require('./src/pushBack')
+const { getInputList } = require('./utils')
+const { callPageSpeed } = require('./callPageSpeed')
+const { pushBack } = require('./pushBack')
 
-async function main() {
-  info('🐯 "psi-github-action" starting to collect report...')
-  info('')
+async function main () {
+  core.info('🐯 "psi-github-action" starting to collect report...')
+  core.info('')
 
   const urls = getInputList('urls')
   const devices = getInputList('devices') || 'mobile'
@@ -25,14 +24,21 @@ async function main() {
   }
 
   let allResponse = []
-  let stringComments = '';
+  let stringComments = ''
   for (const url of urls) {
     stringComments += `### Report for ${url}\n`
     for (const device of devices) {
-      stringComments += `<details>`
-      stringComments += `<summary><b>${device === 'mobile' ? '📱' : '💻'} Device : ${device}</b></summary>`
+      stringComments += '<details>'
+      stringComments += `<summary><b>${
+        device === 'mobile' ? '📱' : '💻'
+      } Device : ${device}</b></summary>`
+      // eslint-disable-next-line no-unused-vars
       for (const _runIdx of arrRuns) {
-        const response = await callPageSpeed(url.trim(), device.trim(), core.getInput('api_key').trim())
+        const response = await callPageSpeed(
+          url.trim(),
+          device.trim(),
+          core.getInput('api_key').trim()
+        )
         allResponse = allResponse.concat([], [response])
         stringComments += `<b>⚡️ Performace Score</b>
  <p>Performance              : <b>${response.perf * 100}</b></p>
@@ -50,7 +56,7 @@ async function main() {
  <p>Total Resources Count    : <b>${response.req}</b></p>
  <p>Total Resources Size     : <b>${response.size}</b></p>`
       }
-      stringComments += `</details>`
+      stringComments += '</details>'
     }
   }
 
@@ -72,6 +78,6 @@ main()
     process.exit(1)
   })
   .then(() => {
-    success(`✅ Completed in ${process.uptime()}s.`)
+    core.info(`✅ Completed in ${process.uptime()}s.`)
     process.exit()
   })

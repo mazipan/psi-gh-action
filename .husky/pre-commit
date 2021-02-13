@@ -1,5 +1,6 @@
 #!/bin/sh
 . "$(dirname $0)/_/husky.sh"
 
+yarn run lint
 yarn run build
-git add ./dist/index.js ./dist/licenses.txt
+git add .

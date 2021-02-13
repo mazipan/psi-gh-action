@@ -5,7 +5,7 @@ const core = require('@actions/core')
  *
  * @param {string} arg
  */
-exports.getInputList = function getInputList(arg, separator = '\n') {
+exports.getInputList = function getInputList (arg, separator = '\n') {
   const input = core.getInput(arg)
   if (!input) return []
   return input
@@ -19,11 +19,11 @@ exports.getInputList = function getInputList(arg, separator = '\n') {
  *
  * @param {Date} date
  */
-exports.formatDate = function formatDate(date) {
-  let d = new Date(date),
-    month = '' + (d.getMonth() + 1),
-    day = '' + d.getDate(),
-    year = d.getFullYear()
+exports.formatDate = function formatDate (date) {
+  const d = new Date(date)
+  let month = '' + (d.getMonth() + 1)
+  let day = '' + d.getDate()
+  const year = d.getFullYear()
 
   if (month.length < 2) month = '0' + month
   if (day.length < 2) day = '0' + day
@@ -31,17 +31,16 @@ exports.formatDate = function formatDate(date) {
   return [year, month, day].join('-')
 }
 
-
 /**
  * Format date to YYYY-MM-DD
  *
  * @param {Date} date
  */
-exports.setPrecision = function setPrecision(value, precision = 2) {
+exports.setPrecision = function setPrecision (value, precision = 2) {
   return parseFloat(value.toFixed(precision))
 }
 
-exports.createSuccessStatus = async function createSuccessStatus({ octokit, context, url, hash, desc = 'Success status by "psi-github-action"' }) {
+exports.createSuccessStatus = async function createSuccessStatus ({ octokit, context, url, hash, desc = 'Success status by "psi-github-action"' }) {
   try {
     await octokit.repos.createCommitStatus({
       owner: context.repo.owner,
