@@ -40,6 +40,7 @@ I want to create an open web performance report for my personal blog, I want my 
     runs: 1
     branch: master
     push_back: true
+    override: false
     token: ${{ secrets.GITHUB_TOKEN }}
 ```
 
@@ -77,6 +78,7 @@ jobs:
           runs: 1
           branch: master
           push_back: true
+          override: false
           token: ${{ secrets.GITHUB_TOKEN }}
 ```
 
