@@ -5,7 +5,7 @@ const { deleteComments } = require('./deleteComments')
 const { generateCommentString } = require('../utils')
 const { blue, red } = require('../logger')
 
-exports.setGitComments = async function setGitComments (data, token) {
+exports.setGitComments = async function setGitComments ({ data, token }) {
   const context = github.context
   const octokit = github.getOctokit(token)
 

@@ -30,6 +30,9 @@ inputs:
   runs:
     description: "Number of runs to do per URL"
     default: 1
+  max:
+    description: "Number of reports should be kept on repository"
+    default: 10
 
 runs:
   using: "node12"

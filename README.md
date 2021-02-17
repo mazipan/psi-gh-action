@@ -22,12 +22,13 @@ I want to create an open web performance report for my personal blog, I want my 
 | `override`  | Will always make a request to PSI for every job | no                        | false   |
 | `token`     | Github token                                    | yes (if `push_back` true) |         |
 | `branch`    | Main branch to store report files               | no                        | master  |
+| `max`       | Number of reports should be kept on repository  | no                        | 10      |
 
 ## Example usage
 
 ```yaml
 - name: psi-gh-action
-  uses: mazipan/psi-gh-action@1.4.0
+  uses: mazipan/psi-gh-action@1.5.0
   with:
     api_key: ${{ secrets.PSI_API_KEY }}
     urls: |
@@ -38,6 +39,7 @@ I want to create an open web performance report for my personal blog, I want my 
       mobile
       desktop
     runs: 1
+    max: 10
     branch: master
     push_back: true
     override: false
@@ -67,7 +69,7 @@ jobs:
           fetch-depth: 0
 
       - name: psi-gh-action
-        uses: mazipan/psi-gh-action@1.4.0
+        uses: mazipan/psi-gh-action@1.5.0
         with:
           api_key: ${{ secrets.PSI_API_KEY }}
           urls: |
@@ -76,6 +78,7 @@ jobs:
             mobile
             desktop
           runs: 1
+          max: 10
           branch: master
           push_back: true
           override: false
@@ -145,4 +148,4 @@ You might need to set a restriction to `None` for your API KEY in the [credentia
 
 ---
 
-Code by [@mazipan](https://mazipan.space/) from 2021
+© 2021 - Code by [@mazipan](https://mazipan.space/)

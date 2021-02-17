@@ -14,11 +14,13 @@ async function main () {
   const urls = getInputList('urls')
   const devices = getInputList('devices') || 'mobile'
   const runs = core.getInput('runs') || 1
+  const max = core.getInput('max') || 1
   const token = core.getInput('token')
+  const apiKey = core.getInput('api_key')
   const override = core.getInput('override')
 
-  if (!token) {
-    core.setFailed('"token" is required, please add your PSI API KEY')
+  if (!apiKey) {
+    core.setFailed('"api_key" is required, please add your PSI API KEY')
   }
 
   // prepare report folder
@@ -36,11 +38,11 @@ async function main () {
       for (const device of devices) {
         // eslint-disable-next-line no-unused-vars
         for (const _runIdx of arrRuns) {
-          const response = await callPageSpeed(
-            url.trim(),
-            device.trim(),
-            core.getInput('api_key').trim()
-          )
+          const response = await callPageSpeed({
+            url: url.trim(),
+            device: device.trim(),
+            apiKey: apiKey.trim()
+          })
           allResponse = allResponse.concat([], [response])
         }
       }
@@ -56,15 +58,21 @@ async function main () {
     newline()
     isNeedToPushBack = true
     await runPSI()
+    newline()
   } else {
     // only run psi when report is NOT exist
     if (!isReportExist) {
-      blue('ℹ️  Start running PSI because "override" config is "false" but the report can not be found')
+      blue(
+        'ℹ️  Start running PSI because "override" config is "false" but the report can not be found'
+      )
       newline()
       isNeedToPushBack = true
       await runPSI()
+      newline()
     } else {
-      yellow('⚠️  Not running PSI because "override" config is "false" and report was generated before')
+      yellow(
+        '⚠️  Not running PSI because "override" config is "false" and report was generated before'
+      )
       newline()
       const existingReport = await getTodayReportData()
       allResponse = existingReport.reports
@@ -81,11 +89,21 @@ async function main () {
   const isPushBack = core.getInput('push_back')
   if (isPushBack && isPushBack === 'true') {
     const branch = core.getInput('branch')
+
     if (isNeedToPushBack) {
       // only push when running PSI job
-      await pushGitChanges(finalResponse, token, branch)
+      await pushGitChanges({
+        data: finalResponse,
+        token,
+        branch,
+        max
+      })
     }
-    await setGitComments(finalResponse, token)
+
+    await setGitComments({
+      data: finalResponse,
+      token
+    })
   }
 }
 
@@ -95,6 +113,7 @@ main()
     process.exit(1)
   })
   .then(() => {
+    newline()
     green(`✅  Completed in ${process.uptime()}s.`)
     process.exit()
   })

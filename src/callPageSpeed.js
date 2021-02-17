@@ -4,8 +4,8 @@ const get = require('lodash/get')
 const { setPrecision } = require('./utils')
 const { yellow } = require('./logger')
 
-exports.callPageSpeed = async function callPageSpeed (url, device = 'mobile', apiKey) {
-  yellow(`> Request to PSI for ${url} ${device}`)
+exports.callPageSpeed = async function callPageSpeed ({ url, device = 'mobile', apiKey }) {
+  yellow(`⏳ Request to PSI for ${url} ${device}`)
 
   const API_URL = `https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url=${encodeURIComponent(
     url
