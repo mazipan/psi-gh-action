@@ -80,19 +80,19 @@ function generateCommentString (response) {
     stringComments += `<summary><b>${
       report.device === 'mobile' ? '📱  Mobile Device' : '💻  Desktop Device'
     }</b></summary>`
-    stringComments += `<p><b>⚡️ Performace Score</b></p>
+    stringComments += `</br></br><p><b>⚡️ Performance Score</b></p>
     Performance              : <b>${report.perf * 100}</b></br>
-    <p><b>🚀 Core Web Vitals</b></p>
+    </br></br><p><b>🚀 Core Web Vitals</b></p>
     First Input Delay        : <b>${report.fid}ms</b></br>
     Largest Contentful Paint : <b>${report.lcp}ms</b></br>
     Cumulative Layout Shift  : <b>${report.cls}</b></br>
-    <p><b>⏱ Other Timings</b></p>
+    </br></br><p><b>⏱ Other Timings</b></p>
     First Contentful Paint   : <b>${report.fcp}ms</b></br>
     First CPU Idle           : <b>${report.fci}ms</b></br>
     Total Blocking Time      : <b>${report.tbt}ms</b></br>
     Time to Interactive      : <b>${report.tti}ms</b></br>
     Speed Index              : <b>${report.si}ms</b></br>
-    <p><b>📦 Resources</b></p>
+    </br></br><p><b>📦 Resources</b></p>
     Total Resources Count    : <b>${report.req}</b></br>
     Total Resources Size     : <b>${report.size}</b></br></details>`
   })
@@ -109,7 +109,7 @@ function logDataToConsole (response) {
     magenta(`👉 URL    : ${report.url}`)
     magenta(`👉 Device : ${report.device}`)
 
-    core.startGroup('⚡️ Performace Score')
+    core.startGroup('⚡️ Performance Score')
     core.info(`Performance: ${report.perf * 100}`)
     core.endGroup()
 
