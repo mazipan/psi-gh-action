@@ -3,7 +3,7 @@ const exec = require('@actions/exec')
 const fs = require('fs')
 const { getAvailableReports } = require('../utils')
 const { CONSTANT } = require('../constants')
-const { red, blue, newline } = require('../logger')
+const { red, blue, yellow, newline } = require('../logger')
 
 exports.pushGitChanges = async function pushGitChanges ({ data, token, branch, max }) {
   blue(`> Trying to push all changes to "${branch}" branch...`)
@@ -24,21 +24,27 @@ exports.pushGitChanges = async function pushGitChanges ({ data, token, branch, m
   if (files.length > max) {
     // collect the "should removed data"
     for (let indexReport = 0; indexReport < files.length; indexReport++) {
-      if (indexReport >= max) {
-        removedReports.push(`${CONSTANT.REPORT_DIR}/${files[indexReport]}`)
+      if (indexReport > max) {
+        const reportPath = `${CONSTANT.REPORT_DIR}/${files[indexReport]}`
+        removedReports.push(`${reportPath}`)
       }
     }
 
     if (removedReports.length > 0) {
-      for (const reportNeedToBeRemoved of removedReports) {
+      newline()
+
+      for (const reportPath of removedReports) {
         try {
-          if (fs.existsSync(reportNeedToBeRemoved)) {
-            fs.unlinkSync(`${reportNeedToBeRemoved}`)
+          if (fs.existsSync(reportPath)) {
+            yellow(`⚠️  Need to delete file: ${reportPath}`)
+            fs.unlinkSync(`${reportPath}`)
           }
         } catch (error) {
           red(error)
         }
       }
+
+      newline()
 
       // remove the removedReports from ALL_REPORT_FILE
       newAllReportContents = {

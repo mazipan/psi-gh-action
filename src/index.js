@@ -14,7 +14,7 @@ async function main () {
   const urls = getInputList('urls')
   const devices = getInputList('devices') || 'mobile'
   const runs = core.getInput('runs') || 1
-  const max = core.getInput('max') || 1
+  const max = core.getInput('max') || 10
   const token = core.getInput('token')
   const apiKey = core.getInput('api_key')
   const override = core.getInput('override')

@@ -26,7 +26,7 @@ jobs:
             mobile
             desktop
           runs: 1
-          max: 1
+          max: 5
           branch: master
           push_back: true
           override: false
