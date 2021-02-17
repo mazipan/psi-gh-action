@@ -78,12 +78,12 @@ function formatThousand (n, fixed = 0) {
 function generateCommentString (response) {
   let stringComments = ''
   response.reports.forEach((report) => {
-    stringComments += `<h3>PSI Report for <a href="${report.url}" alt="${report.url}" target="_blank" rel="noopenner noreferer">${report.url}</a></h3>`
+    stringComments += `<h3>👉  PSI Report for <a href="${report.url}" alt="${report.url}" target="_blank" rel="noopenner noreferer">${report.url}</a></h3>`
     stringComments += '<details>'
     stringComments += `<summary><b>${
       report.device === 'mobile' ? '📱  Mobile Device' : '💻  Desktop Device'
     }</b></summary>`
-    stringComments += `</br></br><b>⚡️ Performance Score</b></br>
+    stringComments += `</br><b>⚡️ Performance Score</b></br>
     Performance              : <b>${report.perf * 100}/100</b></br>
     </br><b>🚀 Core Web Vitals</b></br>
     First Input Delay        : <b>${formatThousand(report.fid)} ms</b></br>
@@ -97,7 +97,7 @@ function generateCommentString (response) {
     Speed Index              : <b>${formatThousand(report.si)} ms</b></br>
     </br><b>📦 Resources</b></br>
     Total Resources Count    : <b>${report.req}</b></br>
-    Total Resources Size     : <b>${formatThousand(report.size / 1000)} kB</b></br></details>`
+    Total Resources Size     : <b>${formatThousand(report.size / 1000)} kB</b></br></details></br>`
   })
 
   return stringComments
