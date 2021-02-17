@@ -71,7 +71,7 @@ async function main () {
       newline()
     } else {
       yellow(
-        '⚠️  Not running PSI because "override" config is "false" and report was generated before'
+        '⚠️  Not running PSI because "override" config is "false", report you seen here is using existing file'
       )
       newline()
       const existingReport = await getTodayReportData()

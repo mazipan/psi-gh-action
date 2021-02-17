@@ -68,6 +68,9 @@ async function getTodayReportData () {
   return null
 }
 
+function formatThousand (n) {
+  return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+}
 /**
  * Check is report already generated
  *
@@ -80,21 +83,21 @@ function generateCommentString (response) {
     stringComments += `<summary><b>${
       report.device === 'mobile' ? '📱  Mobile Device' : '💻  Desktop Device'
     }</b></summary>`
-    stringComments += `</br></br><p><b>⚡️ Performance Score</b></p>
+    stringComments += `</br></br><b>⚡️ Performance Score</b></br>
     Performance              : <b>${report.perf * 100}</b></br>
-    </br></br><p><b>🚀 Core Web Vitals</b></p>
-    First Input Delay        : <b>${report.fid}ms</b></br>
-    Largest Contentful Paint : <b>${report.lcp}ms</b></br>
-    Cumulative Layout Shift  : <b>${report.cls}</b></br>
-    </br></br><p><b>⏱ Other Timings</b></p>
-    First Contentful Paint   : <b>${report.fcp}ms</b></br>
-    First CPU Idle           : <b>${report.fci}ms</b></br>
-    Total Blocking Time      : <b>${report.tbt}ms</b></br>
-    Time to Interactive      : <b>${report.tti}ms</b></br>
-    Speed Index              : <b>${report.si}ms</b></br>
-    </br></br><p><b>📦 Resources</b></p>
+    </br><b>🚀 Core Web Vitals</b></br>
+    First Input Delay        : <b>${(report.fid).toFixed(0)}ms</b></br>
+    Largest Contentful Paint : <b>${(formatThousand(report.lcp)).toFixed(0)}ms</b></br>
+    Cumulative Layout Shift  : <b>${(report.cls).toFixed(3)}</b></br>
+    </br><b>⏱ Other Timings</b></br>
+    First Contentful Paint   : <b>${(formatThousand(report.fcp)).toFixed(0)}ms</b></br>
+    First CPU Idle           : <b>${(formatThousand(report.fci)).toFixed(0)}ms</b></br>
+    Total Blocking Time      : <b>${(formatThousand(report.tbt)).toFixed(0)}ms</b></br>
+    Time to Interactive      : <b>${(formatThousand(report.tti)).toFixed(0)}ms</b></br>
+    Speed Index              : <b>${(formatThousand(report.si)).toFixed(0)}ms</b></br>
+    </br><b>📦 Resources</b></br>
     Total Resources Count    : <b>${report.req}</b></br>
-    Total Resources Size     : <b>${report.size}</b></br></details>`
+    Total Resources Size     : <b>${(report.size / 1000).toFixed(0)}kB</b></br></details>`
   })
 
   return stringComments
@@ -114,22 +117,22 @@ function logDataToConsole (response) {
     core.endGroup()
 
     core.startGroup('🚀 Core Web Vitals')
-    core.info(`First Input Delay        : ${report.fid}ms`)
-    core.info(`Largest Contentful Paint : ${report.lcp}ms`)
-    core.info(`Cumulative Layout Shift  : ${report.cls}`)
+    core.info(`First Input Delay        : ${(report.fid).toFixed(0)}ms`)
+    core.info(`Largest Contentful Paint : ${(formatThousand(report.lcp)).toFixed(0)}ms`)
+    core.info(`Cumulative Layout Shift  : ${(report.cls).toFixed(3)}`)
     core.endGroup()
 
     core.startGroup('⏱ Other Timings')
-    core.info(`First Contentful Paint   : ${report.fcp}ms`)
-    core.info(`First CPU Idle           : ${report.fci}ms`)
-    core.info(`Total Blocking Time      : ${report.tbt}ms`)
-    core.info(`Time to Interactive      : ${report.tti}ms`)
-    core.info(`Speed Index              : ${report.si}ms`)
+    core.info(`First Contentful Paint   : ${(formatThousand(report.fcp)).toFixed(0)}ms`)
+    core.info(`First CPU Idle           : ${(formatThousand(report.fci)).toFixed(0)}ms`)
+    core.info(`Total Blocking Time      : ${(formatThousand(report.tbt)).toFixed(0)}ms`)
+    core.info(`Time to Interactive      : ${(formatThousand(report.tti)).toFixed(0)}ms`)
+    core.info(`Speed Index              : ${(formatThousand(report.si)).toFixed(0)}ms`)
     core.endGroup()
 
     core.startGroup('📦 Resources')
     core.info(`Total Resources Count    : ${report.req}`)
-    core.info(`Total Resources Size     : ${report.size}`)
+    core.info(`Total Resources Size     : ${report.size / 1000}kB`)
     core.endGroup()
 
     newline()
