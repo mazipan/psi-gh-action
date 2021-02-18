@@ -136,7 +136,9 @@ See the complete list on [AWESOME-USERS.md](AWESOME-USERS.md)
 
 ### How to add new secret in Github Actions
 
-https://docs.github.com/en/actions/reference/encrypted-secrets
+Go to: https://github.com/{YOUR_USERNAME}/{YOUR_REPO}/settings/secrets/actions
+
+Read more: https://docs.github.com/en/actions/reference/encrypted-secrets
 
 ### How to create new API Key for PSI
 
