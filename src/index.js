@@ -12,12 +12,14 @@ async function main () {
   green('🐯 "psi-github-action" starting to collect report...')
 
   const urls = getInputList('urls')
-  const devices = getInputList('devices') || 'mobile'
+  const devices = getInputList('devices')
   const runs = core.getInput('runs') || 1
   const max = core.getInput('max') || 10
-  const token = core.getInput('token')
   const apiKey = core.getInput('api_key')
+  const token = core.getInput('token')
   const override = core.getInput('override')
+  const branch = core.getInput('branch')
+  const isPushBack = core.getInput('push_back')
 
   if (!apiKey) {
     core.setFailed('"api_key" is required, please add your PSI API KEY')
@@ -86,9 +88,7 @@ async function main () {
 
   logDataToConsole(finalResponse)
 
-  const isPushBack = core.getInput('push_back')
   if (isPushBack && isPushBack === 'true') {
-    const branch = core.getInput('branch')
 
     if (isNeedToPushBack) {
       // only push when running PSI job
