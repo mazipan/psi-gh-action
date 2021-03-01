@@ -16,10 +16,13 @@ async function main () {
   const runs = core.getInput('runs') || 1
   const max = core.getInput('max') || 10
   const apiKey = core.getInput('api_key')
-  const token = core.getInput('token')
+  const ghToken = core.getInput('token')
   const override = core.getInput('override')
   const branch = core.getInput('branch')
-  const isPushBack = core.getInput('push_back')
+  const pushBack = core.getInput('push_back')
+
+  const isPushBack = pushBack && pushBack === 'true'
+  const isOverride = override && override === 'true'
 
   if (!apiKey) {
     core.setFailed('"api_key" is required, please add your PSI API KEY')
@@ -55,7 +58,7 @@ async function main () {
 
   let isNeedToPushBack = false
   // will always run psi when override is set
-  if (override && override === 'true') {
+  if (isOverride) {
     blue('ℹ️  Start running PSI because "override" config is "true"')
     newline()
     isNeedToPushBack = true
@@ -88,21 +91,20 @@ async function main () {
 
   logDataToConsole(finalResponse)
 
-  if (isPushBack && isPushBack === 'true') {
-
+  if (isPushBack) {
     if (isNeedToPushBack) {
       // only push when running PSI job
       await pushGitChanges({
         data: finalResponse,
-        token,
-        branch,
-        max
+        token: ghToken.trim(),
+        branch: branch.trim(),
+        max: parseInt(max, 10)
       })
     }
 
     await setGitComments({
       data: finalResponse,
-      token
+      token: ghToken.trim()
     })
   }
 }
