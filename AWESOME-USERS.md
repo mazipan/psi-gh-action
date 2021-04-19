@@ -2,11 +2,6 @@
 
 **Sorted alphabetically**
 
-## TEMPLATE
-
-- Repo: [{GH_USERNAME}/{REPO_NAME}](https://github.com/{GH_USERNAME}/{REPO_NAME})
-- Live Page: [YOUR_WEB_URL](https://YOUR_WEB_URL)
-
 ## adibfirman.space
 
 - Repo: [adibfirman/adibfirman.github.io](https://github.com/adibfirman/adibfirman.github.io)
@@ -23,4 +18,9 @@
 - Repo: [mazipan/mazipan.space](https://github.com/mazipan/mazipan.space)
 - Live Page: [mazipan.space/speed](https://mazipan.space/speed)
 
+```
+## TEMPLATE
 
+- Repo: [{GH_USERNAME}/{REPO_NAME}](https://github.com/{GH_USERNAME}/{REPO_NAME})
+- Live Page: [YOUR_WEB_URL](https://YOUR_WEB_URL)
+```
