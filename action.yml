@@ -1,5 +1,5 @@
 name: "psi-gh-action"
-description: "Github Action to generate web performance report using PageSpeedInsight"
+description: "🐯 Github Action to generating static web performance report for JAMStack using PageSpeedInsight"
 author: Irfan Maulana <https://github.com/mazipan>
 
 branding:
