@@ -1,7 +1,7 @@
 {
   "name": "psi-gh-action",
   "version": "1.5.1",
-  "description": "🐯 Github Action to generate web performance report using PageSpeedInsight",
+  "description": "🐯 Github Action to generating static web performance report for JAMStack using PageSpeedInsight",
   "main": "index.js",
   "scripts": {
     "postinstall": "husky install",
