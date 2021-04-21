@@ -1,6 +1,6 @@
 # 🐯 psi-gh-action
 
-Github Action to generate web performance report using PageSpeedInsight
+Github Action to generate web performance report for JAMStack using PageSpeedInsight
 
 ![Release](https://img.shields.io/github/v/release/mazipan/psi-gh-action?logo=version&style=plastic) ![.github/workflows/example.yml](https://github.com/mazipan/psi-gh-action/workflows/.github/workflows/example.yml/badge.svg?branch=master)
 
