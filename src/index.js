@@ -3,7 +3,7 @@ const io = require('@actions/io')
 
 const { CONSTANT } = require('./constants')
 const { green, blue, yellow, newline } = require('./logger')
-const { getInputList, isHaveTodayReport, getTodayReportData, logDataToConsole } = require('./utils')
+const { getInputList, isHaveTodayReport, isContainsZeroPerformance, getTodayReportData, logDataToConsole } = require('./utils')
 const { callPageSpeed } = require('./callPageSpeed')
 const { pushGitChanges } = require('./github/pushGitChanges')
 const { setGitComments } = require('./github/setGitComments')
@@ -94,11 +94,13 @@ async function main () {
   if (isPushBack) {
     if (isNeedToPushBack) {
       // only push when running PSI job
+      const isContainsZero = isContainsZeroPerformance(finalResponse)
       await pushGitChanges({
         data: finalResponse,
         token: ghToken.trim(),
         branch: branch.trim(),
-        max: parseInt(max, 10)
+        max: parseInt(max, 10),
+        isContainsZero
       })
     }
 

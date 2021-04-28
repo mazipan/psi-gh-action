@@ -69,7 +69,10 @@ async function getTodayReportData () {
 }
 
 function formatThousand (n, fixed = 0) {
-  return n.toFixed(fixed).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+  return n
+    .toFixed(fixed)
+    .toString()
+    .replace(/\B(?=(\d{3})+(?!\d))/g, ',')
 }
 /**
  * Check is report already generated
@@ -88,7 +91,7 @@ function generateCommentString (response) {
     </br><b>🚀 Core Web Vitals</b></br>
     First Input Delay        : <b>${formatThousand(report.fid)} ms</b></br>
     Largest Contentful Paint : <b>${formatThousand(report.lcp)} ms</b></br>
-    Cumulative Layout Shift  : <b>${(report.cls).toFixed(3)}</b></br>
+    Cumulative Layout Shift  : <b>${report.cls.toFixed(3)}</b></br>
     </br><b>⏱ Other Timings</b></br>
     First Contentful Paint   : <b>${formatThousand(report.fcp)} ms</b></br>
     First CPU Idle           : <b>${formatThousand(report.fci)} ms</b></br>
@@ -119,7 +122,7 @@ function logDataToConsole (response) {
     core.startGroup('🚀 Core Web Vitals')
     core.info(`First Input Delay        : ${formatThousand(report.fid)} ms`)
     core.info(`Largest Contentful Paint : ${formatThousand(report.lcp)} ms`)
-    core.info(`Cumulative Layout Shift  : ${(report.cls).toFixed(3)}`)
+    core.info(`Cumulative Layout Shift  : ${report.cls.toFixed(3)}`)
     core.endGroup()
 
     core.startGroup('⏱ Other Timings')
@@ -139,6 +142,23 @@ function logDataToConsole (response) {
   })
 }
 
+/**
+ * Check is report have zero performance score
+ *
+ */
+function isContainsZeroPerformance (response) {
+  let isContainsZero = false
+  for (let index = 0; index < response.reports.length; index++) {
+    const report = response.reports[index]
+    if (!isContainsZero && report.perf === 0) {
+      isContainsZero = true
+      break
+    }
+  }
+
+  return isContainsZero
+}
+
 exports.getInputList = getInputList
 exports.setPrecision = setPrecision
 exports.getAvailableReports = getAvailableReports
@@ -146,3 +166,4 @@ exports.getTodayReportData = getTodayReportData
 exports.isHaveTodayReport = isHaveTodayReport
 exports.generateCommentString = generateCommentString
 exports.logDataToConsole = logDataToConsole
+exports.isContainsZeroPerformance = isContainsZeroPerformance

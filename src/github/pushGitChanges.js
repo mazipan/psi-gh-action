@@ -5,7 +5,11 @@ const { getAvailableReports } = require('../utils')
 const { CONSTANT } = require('../constants')
 const { red, blue, yellow, newline } = require('../logger')
 
-exports.pushGitChanges = async function pushGitChanges ({ data, token, branch, max }) {
+exports.pushGitChanges = async function pushGitChanges ({ data, token, branch, max, isContainsZero }) {
+  if (isContainsZero) {
+    yellow('⚠️  Skip to push all changes because the report contains zero value')
+    return
+  }
   blue(`> Trying to push all changes to "${branch}" branch...`)
   const context = github.context
   const remoteRepo = `https://${context.actor}:${token}@github.com/${context.repo.owner}/${context.repo.repo}.git`
