@@ -24,7 +24,7 @@ exports.pushGitChanges = async function pushGitChanges ({ data, token, branch, m
   if (files.length > max) {
     // collect the "should removed data"
     for (let indexReport = 0; indexReport < files.length; indexReport++) {
-      if (indexReport > max) {
+      if (indexReport >= max) {
         const reportPath = `${CONSTANT.REPORT_DIR}/${files[indexReport]}`
         removedReports.push(`${reportPath}`)
       }
