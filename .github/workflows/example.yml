@@ -1,5 +1,8 @@
 on:
   push:
+    branches:
+    - master
+    - main
     paths-ignore:
     - "psi-reports/**"
     - "dist/**"
