@@ -112,8 +112,7 @@ This Github Actions will generate these following files:
       "fid": 16,          // First Input Delay based on Chrome UX field data
       "lcp": 2775,        // Largest Contentful Paint
       "cls": 0,           // Cummulative Layout Shift
-      "fcp": 2100,        // First Contentful Painy
-      "fci": 3533,        // First CPU Idle
+      "fcp": 2100,        // First Contentful Paint
       "tbt": 591,         // Total Blocking Time
       "tti": 5656.5,      // Time to Interactive
       "si": 2100,         // Speed Index
