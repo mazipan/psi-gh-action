@@ -1,8 +1,8 @@
 {
   "name": "psi-gh-action",
-  "version": "1.5.1",
+  "version": "1.6.0",
   "description": "🐯 Github Action to generating static web performance report for JAMStack using PageSpeedInsight",
-  "main": "index.js",
+  "main": "./dist/index.js",
   "scripts": {
     "postinstall": "husky install",
     "prepublishOnly": "pinst --disable",
@@ -25,16 +25,17 @@
   },
   "homepage": "https://github.com/mazipan/psi-gh-action#readme",
   "dependencies": {
-    "@actions/core": "^1.2.6",
-    "@actions/exec": "^1.0.4",
-    "@actions/github": "^4.0.0",
-    "@actions/io": "^1.0.2",
+    "@actions/core": "^1.6.0",
+    "@actions/exec": "^1.1.1",
+    "@actions/github": "^5.0.1",
+    "@actions/io": "^1.1.2",
     "lodash": "^4.17.21",
-    "node-fetch": "^2.6.1"
+    "node-fetch": "^3.2.3"
   },
   "devDependencies": {
-    "husky": "^5.0.9",
-    "pinst": "^2.1.4",
-    "standard": "^16.0.3"
+    "@vercel/ncc": "0.33.3",
+    "husky": "^7.0.4",
+    "pinst": "^3.0.0",
+    "standard": "^16.0.4"
   }
 }

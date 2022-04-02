@@ -81,26 +81,47 @@ function formatThousand (n, fixed = 0) {
 function generateCommentString (response) {
   let stringComments = ''
   response.reports.forEach((report) => {
-    stringComments += `<h3>👉  PSI Report for <a href="${report.url}" alt="${report.url}" target="_blank" rel="noopenner noreferer">${report.url}</a></h3>`
-    stringComments += '<details>'
-    stringComments += `<summary><b>${
+    stringComments += `<h2>${
       report.device === 'mobile' ? '📱  Mobile Device' : '💻  Desktop Device'
-    }</b></summary>`
-    stringComments += `</br><b>⚡️ Performance Score</b></br>
-    Performance              : <b>${report.perf * 100}/100</b></br>
-    </br><b>🚀 Core Web Vitals</b></br>
-    First Input Delay        : <b>${formatThousand(report.fid)} ms</b></br>
-    Largest Contentful Paint : <b>${formatThousand(report.lcp)} ms</b></br>
-    Cumulative Layout Shift  : <b>${report.cls.toFixed(3)}</b></br>
-    </br><b>⏱ Other Timings</b></br>
-    First Contentful Paint   : <b>${formatThousand(report.fcp)} ms</b></br>
-    First CPU Idle           : <b>${formatThousand(report.fci)} ms</b></br>
-    Total Blocking Time      : <b>${formatThousand(report.tbt)} ms</b></br>
-    Time to Interactive      : <b>${formatThousand(report.tti)} ms</b></br>
-    Speed Index              : <b>${formatThousand(report.si)} ms</b></br>
-    </br><b>📦 Resources</b></br>
-    Total Resources Count    : <b>${report.req}</b></br>
-    Total Resources Size     : <b>${formatThousand(report.size / 1000)} kB</b></br></details></br>`
+    }</h2>`
+    stringComments += `<h3>👉 Page: <a href="${report.url}" target="_blank" rel="noopenner noreferer">${report.url}</a></h3>
+    <table>
+     <thead>
+      <th>
+        <td rowspan="2">Perf</td>
+        <td colspan="3">Core Web Vitals</td>
+        <td colspan="3">Timings</td>
+        <td colspan="2">Resources</td>
+      </th>
+      <th>
+        <td>FID</td>
+        <td>FID</td>
+        <td>LCP</td>
+        <td>FCP</td>
+        <td>TBT</td>
+        <td>TTI</td>
+        <td>Speed Index</td>
+        <td>Resources Count</td>
+        <td>Resources Size</td>
+      </th>
+     </thead>
+     <tbody>
+      <tr>
+        <td>${report.perf * 100}/100</td>
+        <td>${formatThousand(report.fid)} ms</td>
+        <td>${formatThousand(report.lcp)} ms</td>
+        <td>${report.cls.toFixed(3)}</td>
+        <td>${formatThousand(report.fcp)} ms</td>
+        <td>${formatThousand(report.fci)} ms</td>
+        <td>${formatThousand(report.tbt)} ms</td>
+        <td>${formatThousand(report.tti)} ms</td>
+        <td>${formatThousand(report.si)} ms</td>
+        <td>${report.req} ms</td>
+        <td>${formatThousand(report.size / 1000)} kB</td>
+      </tr>
+     </tbody>
+    </table>
+    `
   })
 
   return stringComments
