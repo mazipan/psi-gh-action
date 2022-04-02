@@ -2,7 +2,7 @@
 
 Github Action to generating static web performance report for JAMStack using PageSpeedInsight
 
-![Release](https://img.shields.io/github/v/release/mazipan/psi-gh-action?logo=version&style=plastic) ![.github/workflows/example.yml](https://github.com/mazipan/psi-gh-action/workflows/.github/workflows/example.yml/badge.svg?branch=master)
+![Version](https://img.shields.io/github/v/release/mazipan/psi-gh-action?label=version) ![.github/workflows/example.yml](https://github.com/mazipan/psi-gh-action/workflows/.github/workflows/example.yml/badge.svg?branch=master)
 
 ![Screenshot](screenshots/action-log.png)
 
@@ -28,7 +28,7 @@ I want to create an open web performance report for my personal blog, I want my 
 
 ```yaml
 - name: psi-gh-action
-  uses: mazipan/psi-gh-action@1.5.1
+  uses: mazipan/psi-gh-action@1.6.0
   with:
     api_key: ${{ secrets.PSI_API_KEY }}
     urls: |
@@ -69,7 +69,7 @@ jobs:
           fetch-depth: 0
 
       - name: psi-gh-action
-        uses: mazipan/psi-gh-action@1.5.1
+        uses: mazipan/psi-gh-action@1.6.0
         with:
           api_key: ${{ secrets.PSI_API_KEY }}
           urls: |
