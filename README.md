@@ -147,6 +147,19 @@ You might need to set a restriction to `None` for your API KEY in the [credentia
 
 ![setup restriction](screenshots/key-restriction.png)
 
+## Abbreviation
+
+| Word  | Description              | Link                                            |
+| ----- | ------------------------ | ----------------------------------------------- |
+| `FID` | First Input Delay        | https://web.dev/fid/                            |
+| `LCP` | Largest Contentful Paint | https://web.dev/lcp/                            |
+| `CLS` | Cumulative Layout Shift  | https://web.dev/cls/                            |
+| `FCP` | First Contentful Paint   | https://web.dev/first-contentful-paint/         |
+| `FCI` | First CPU Idle           | https://web.dev/first-cpu-idle/                 |
+| `TBT` | Total Blocking Time      | https://web.dev/lighthouse-total-blocking-time/ |
+| `TTI` | Time to Interactive      | https://web.dev/tti/                            |
+| `SI`  | Speed Index              | https://web.dev/speed-index/                    |
+
 ---
 
 © 2021 - Code by [@mazipan](https://mazipan.space/)

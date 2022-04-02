@@ -84,23 +84,24 @@ function generateCommentString (response) {
     stringComments += `<h2>${
       report.device === 'mobile' ? '📱  Mobile Device' : '💻  Desktop Device'
     }</h2>`
-    stringComments += `<p>👉 Page: <a href="${report.url}" target="_blank" rel="noopenner noreferer">${report.url}</a></p>
+    stringComments += `<p>Page: <a href="${report.url}" target="_blank" rel="noopenner noreferer">${report.url}</a></p>
     <table>
      <thead>
       <tr>
         <th rowspan="2" colspan="2">Perf</th>
         <th colspan="3">Core Web Vitals</th>
-        <th colspan="4">Timings</th>
+        <th colspan="5">Timings</th>
         <th colspan="2">Resources</th>
       </tr>
       <tr>
         <th>FID</th>
-        <th>FID</th>
         <th>LCP</th>
+        <th>CLS</th>
         <th>FCP</th>
+        <th>FCI</th>
         <th>TBT</th>
         <th>TTI</th>
-        <th>Speed Index</th>
+        <th>SI</th>
         <th>Resources Count</th>
         <th>Resources Size</th>
       </tr>
@@ -112,11 +113,13 @@ function generateCommentString (response) {
         <td>${formatThousand(report.fid)}ms</td>
         <td>${formatThousand(report.lcp)}ms</td>
         <td>${report.cls.toFixed(3)}</td>
+
         <td>${formatThousand(report.fcp)}ms</td>
         <td>${formatThousand(report.fci)}ms</td>
         <td>${formatThousand(report.tbt)}ms</td>
         <td>${formatThousand(report.tti)}ms</td>
         <td>${formatThousand(report.si)}ms</td>
+
         <td>${report.req}ms</td>
         <td>${formatThousand(report.size / 1000)}kB</td>
       </tr>
