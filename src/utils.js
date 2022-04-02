@@ -88,9 +88,9 @@ function generateCommentString (response) {
     <table>
      <thead>
       <tr>
-        <th rowspan="2">Perf</th>
+        <th rowspan="2" colspan="2">Perf</th>
         <th colspan="3">Core Web Vitals</th>
-        <th colspan="3">Timings</th>
+        <th colspan="4">Timings</th>
         <th colspan="2">Resources</th>
       </tr>
       <tr>
@@ -107,17 +107,18 @@ function generateCommentString (response) {
      </thead>
      <tbody>
       <tr>
+        <td>${(report.perf * 100) < 49 ? '🔴' : (report.perf * 100) < 89 ? '🟠' : '🟢'}</td>
         <td>${report.perf * 100}/100</td>
-        <td>${formatThousand(report.fid)} ms</td>
-        <td>${formatThousand(report.lcp)} ms</td>
+        <td>${formatThousand(report.fid)}ms</td>
+        <td>${formatThousand(report.lcp)}ms</td>
         <td>${report.cls.toFixed(3)}</td>
-        <td>${formatThousand(report.fcp)} ms</td>
-        <td>${formatThousand(report.fci)} ms</td>
-        <td>${formatThousand(report.tbt)} ms</td>
-        <td>${formatThousand(report.tti)} ms</td>
-        <td>${formatThousand(report.si)} ms</td>
-        <td>${report.req} ms</td>
-        <td>${formatThousand(report.size / 1000)} kB</td>
+        <td>${formatThousand(report.fcp)}ms</td>
+        <td>${formatThousand(report.fci)}ms</td>
+        <td>${formatThousand(report.tbt)}ms</td>
+        <td>${formatThousand(report.tti)}ms</td>
+        <td>${formatThousand(report.si)}ms</td>
+        <td>${report.req}ms</td>
+        <td>${formatThousand(report.size / 1000)}kB</td>
       </tr>
      </tbody>
     </table>
