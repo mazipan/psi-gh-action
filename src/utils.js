@@ -84,7 +84,7 @@ function generateCommentString (response) {
     stringComments += `<h2>${
       report.device === 'mobile' ? '📱  Mobile Device' : '💻  Desktop Device'
     }</h2>`
-    stringComments += `<h3>👉 Page: <a href="${report.url}" target="_blank" rel="noopenner noreferer">${report.url}</a></h3>
+    stringComments += `<p>👉 Page: <a href="${report.url}" target="_blank" rel="noopenner noreferer">${report.url}</a></p>
     <table>
      <thead>
       <tr>
