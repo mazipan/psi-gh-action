@@ -113,13 +113,11 @@ function generateCommentString (response) {
         <td>${formatThousand(report.fid)}ms</td>
         <td>${formatThousand(report.lcp)}ms</td>
         <td>${report.cls.toFixed(3)}</td>
-
         <td>${formatThousand(report.fcp)}ms</td>
         <td>${formatThousand(report.fci)}ms</td>
         <td>${formatThousand(report.tbt)}ms</td>
         <td>${formatThousand(report.tti)}ms</td>
         <td>${formatThousand(report.si)}ms</td>
-
         <td>${report.req}ms</td>
         <td>${formatThousand(report.size / 1000)}kB</td>
       </tr>
