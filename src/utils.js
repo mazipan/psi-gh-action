@@ -87,23 +87,23 @@ function generateCommentString (response) {
     stringComments += `<h3>👉 Page: <a href="${report.url}" target="_blank" rel="noopenner noreferer">${report.url}</a></h3>
     <table>
      <thead>
-      <th>
-        <td rowspan="2">Perf</td>
-        <td colspan="3">Core Web Vitals</td>
-        <td colspan="3">Timings</td>
-        <td colspan="2">Resources</td>
-      </th>
-      <th>
-        <td>FID</td>
-        <td>FID</td>
-        <td>LCP</td>
-        <td>FCP</td>
-        <td>TBT</td>
-        <td>TTI</td>
-        <td>Speed Index</td>
-        <td>Resources Count</td>
-        <td>Resources Size</td>
-      </th>
+      <tr>
+        <th rowspan="2">Perf</th>
+        <th colspan="3">Core Web Vitals</th>
+        <th colspan="3">Timings</th>
+        <th colspan="2">Resources</th>
+      </tr>
+      <tr>
+        <th>FID</th>
+        <th>FID</th>
+        <th>LCP</th>
+        <th>FCP</th>
+        <th>TBT</th>
+        <th>TTI</th>
+        <th>Speed Index</th>
+        <th>Resources Count</th>
+        <th>Resources Size</th>
+      </tr>
      </thead>
      <tbody>
       <tr>
