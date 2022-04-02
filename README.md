@@ -12,17 +12,17 @@ I want to create an open web performance report for my personal blog, I want my 
 
 ## Inputs
 
-| Input       | Description                                     | Required                  | Default |
-| ----------- | ----------------------------------------------- | ------------------------- | ------- |
-| `api_key`   | PageSpeedInsight API key                        | yes                       |         |
-| `urls`      | List of URL(s) to be analyzed                   | yes                       |         |
-| `devices`   | Device(s) used for test                         | no                        | mobile  |
-| `runs`      | Number of runs to do per URL                    | no                        | 1       |
-| `push_back` | Push JSON report to the main branch             | no                        | false   |
-| `override`  | Will always make a request to PSI for every job | no                        | false   |
-| `token`     | Github token                                    | yes (if `push_back` true) |         |
-| `branch`    | Main branch to store report files               | no                        | master  |
-| `max`       | Number of reports should be kept on repository  | no                        | 10      |
+| Input       | Description                                     | Required                   | Default  |
+| ----------- | ----------------------------------------------- | -------------------------- | -------- |
+| `api_key`   | PageSpeedInsight API key                        | ✅                         |          |
+| `urls`      | List of URL(s) to be analyzed                   | ✅                         |          |
+| `devices`   | Device(s) used for test                         | ❌                         | `mobile` |
+| `runs`      | Number of runs to do per URL                    | ❌                         | `1`      |
+| `push_back` | Push JSON report to the main branch             | ❌                         | `false`  |
+| `override`  | Will always make a request to PSI for every job | ❌                         | `false`  |
+| `token`     | Github token                                    | ✅ (when `push_back=true`) |          |
+| `branch`    | Main branch to store report files               | ❌                         | `master` |
+| `max`       | Number of reports should be kept on repository  | ❌                         | `10`     |
 
 ## Example usage
 
