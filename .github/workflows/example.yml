@@ -32,7 +32,7 @@ jobs:
           devices: |
             mobile
             desktop
-          runs: 1
+          runs: 3
           max: 5
           branch: master
           push_back: true
