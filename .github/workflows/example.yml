@@ -36,5 +36,5 @@ jobs:
           max: 5
           branch: master
           push_back: true
-          override: false
+          override: true
           token: ${{ secrets.GITHUB_TOKEN }}
