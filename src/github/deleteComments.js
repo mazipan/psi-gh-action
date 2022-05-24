@@ -8,7 +8,7 @@ exports.deleteComments = async function deleteComments (token, comments) {
     const commentsByBot = comments.filter(comment => comment.user.login === 'github-actions[bot]')
     for (const comment of commentsByBot) {
       blue(`> Deleting comment: ${comment.id}`)
-      await octokit.repos.deleteCommitComment({
+      await octokit.rest.repos.deleteCommitComment({
         owner: context.repo.owner,
         repo: context.repo.repo,
         comment_id: comment.id

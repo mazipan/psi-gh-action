@@ -9,7 +9,7 @@ exports.setCommitStatus = async function setCommitStatus (token) {
 
   try {
     blue(`> Adding commit status on: ${context.sha}`)
-    await octokit.repos.createCommitStatus({
+    await octokit.rest.repos.createCommitStatus({
       owner: context.repo.owner,
       repo: context.repo.repo,
       target_url: actionUrl,

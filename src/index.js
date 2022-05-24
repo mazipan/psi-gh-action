@@ -3,10 +3,11 @@ const io = require('@actions/io')
 
 const { CONSTANT } = require('./constants')
 const { green, blue, yellow, newline } = require('./logger')
-const { getInputList, isHaveTodayReport, isContainsZeroPerformance, getTodayReportData, logDataToConsole } = require('./utils')
+const { getInputList, isHaveTodayReport, isContainsZeroPerformance, getTodayReportData, logDataToConsole, generateCommentString } = require('./utils')
 const { callPageSpeed } = require('./callPageSpeed')
 const { pushGitChanges } = require('./github/pushGitChanges')
 const { setGitComments } = require('./github/setGitComments')
+const { setActionSummary } = require('./github/setActionSummary')
 
 async function main () {
   green('🐯 "psi-github-action" starting to collect report...')
@@ -39,19 +40,22 @@ async function main () {
   let allResponse = []
 
   const runPSI = async () => {
+    const allPromises = []
     for (const url of urls) {
       for (const device of devices) {
         // eslint-disable-next-line no-unused-vars
         for (const _runIdx of arrRuns) {
-          const response = await callPageSpeed({
+          const response = callPageSpeed({
             url: url.trim(),
             device: device.trim(),
             apiKey: apiKey.trim()
           })
-          allResponse = allResponse.concat([], [response])
+          allPromises.push(response)
         }
       }
     }
+
+    allResponse = (await Promise.all(allPromises))
   }
 
   const isReportExist = await isHaveTodayReport()
@@ -104,8 +108,14 @@ async function main () {
       })
     }
 
+    const commentBody = generateCommentString(finalResponse)
     await setGitComments({
-      data: finalResponse,
+      commentBody: commentBody,
+      token: ghToken.trim()
+    })
+
+    await setActionSummary({
+      commentBody: commentBody,
       token: ghToken.trim()
     })
   }

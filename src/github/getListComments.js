@@ -6,7 +6,7 @@ exports.getListComments = async function getListComments (token) {
   const octokit = github.getOctokit(token)
   try {
     blue(`> Get list of comments on commit: ${context.sha}`)
-    const comments = await octokit.repos.listCommentsForCommit({
+    const comments = await octokit.rest.repos.listCommentsForCommit({
       owner: context.repo.owner,
       repo: context.repo.repo,
       commit_sha: context.sha,

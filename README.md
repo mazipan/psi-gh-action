@@ -28,7 +28,7 @@ I want to create an open web performance report for my personal blog, I want my 
 
 ```yaml
 - name: psi-gh-action
-  uses: mazipan/psi-gh-action@1.6.0
+  uses: mazipan/psi-gh-action@1.7.0
   with:
     api_key: ${{ secrets.PSI_API_KEY }}
     urls: |
@@ -69,7 +69,7 @@ jobs:
           fetch-depth: 0
 
       - name: psi-gh-action
-        uses: mazipan/psi-gh-action@1.6.0
+        uses: mazipan/psi-gh-action@1.7.0
         with:
           api_key: ${{ secrets.PSI_API_KEY }}
           urls: |
