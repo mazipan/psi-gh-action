@@ -55,7 +55,7 @@ async function main () {
       }
     }
 
-    allResponse = (await Promise.all(allPromises))
+    allResponse = allResponse.concat([], (await Promise.all(allPromises)))
   }
 
   const isReportExist = await isHaveTodayReport()
