@@ -139,6 +139,11 @@ Go to: https://github.com/{YOUR_USERNAME}/{YOUR_REPO}/settings/secrets/actions
 
 Read more: https://docs.github.com/en/actions/reference/encrypted-secrets
 
+### Create Pull Request after suceess
+
+Instead of push directly to the branch, sometimes you just want to create pull request to main branch then you can merge it manually.
+To solve this case, I recommend to use [`peter-evans/create-pull-request`](https://github.com/peter-evans/create-pull-request)
+
 ### How to create new API Key for PSI
 
 https://developers.google.com/speed/docs/insights/v5/get-started
